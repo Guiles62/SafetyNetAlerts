@@ -15,7 +15,7 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    public Optional<Person> getPerson(final Long id) {
+    public Optional<Person> getPersonById(final Long id) {
 
         return PersonRepository.findById(id);
     }

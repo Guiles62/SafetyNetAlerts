@@ -18,6 +18,10 @@ public class PersonController {
     public Iterable <Person> getPerson(){
         return personService.getPerson();
     }
+    @GetMapping(value = "/person/id")
+    public Iterable <Person> getPersonById(long id){
+        return personService.getPersonById();
+    }
     @PostMapping(value ="/person")
     public Person setPerson(Person person){
         return personService.savePerson(person);
