@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 @Controller
 public class FireStationController {
@@ -18,14 +21,18 @@ public class FireStationController {
     public Iterable <FireStation> getFireStation(){
         return fireStationService.getFireStation();
     }
-    @GetMapping(value = "firestation/id")
-    public Iterable <FireStation> getFireStationById(Long id){
-        return fireStationService.getFireStationById(id);
+
+    @GetMapping(value = "firestation/{id}")
+    public Optional<FireStation> getFireStationById(@PathVariable Long id){
+        Optional <FireStation> firestationById = fireStationService.getFireStationById(id);
+        return firestationById;
     }
+
     @DeleteMapping(value = "fireStation")
     public void deleteFireStation(Long id){
         fireStationService.deleteFireStation(id);
     }
+
     @PostMapping(value = "firestation")
     public FireStation setFireStation(FireStation fireStation){
         return fireStationService.saveFireStation(fireStation);

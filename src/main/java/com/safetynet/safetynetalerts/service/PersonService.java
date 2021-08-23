@@ -17,7 +17,7 @@ public class PersonService {
 
     public Optional<Person> getPersonById(final Long id) {
 
-        return PersonRepository.findById(id);
+        return personRepository.findById(id);
     }
 
     public Iterable<Person> getPerson() {

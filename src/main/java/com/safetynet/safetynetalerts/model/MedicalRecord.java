@@ -29,6 +29,10 @@ public class MedicalRecord {
         this.allergies = allergies;
     }
 
+    public MedicalRecord(long id) {
+        this.id = id;
+    }
+
     public String getFirstname() {
         return firstname;
     }

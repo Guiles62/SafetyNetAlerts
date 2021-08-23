@@ -15,12 +15,13 @@ public class FireStationService {
     @Autowired
     private FireStationRepository fireStationRepository;
 
-    public Optional<Person> getFireStationById(final Long id) {
+    public Optional<FireStation> getFireStationById(final Long id) {
 
-        return FireStationRepository.findById(id);
+        return fireStationRepository.findById(id);
     }
 
     public Iterable<FireStation> getFireStation() {
+
         return fireStationRepository.findAll();
     }
 

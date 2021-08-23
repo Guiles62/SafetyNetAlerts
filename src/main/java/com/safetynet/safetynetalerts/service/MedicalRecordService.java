@@ -19,7 +19,7 @@ public class MedicalRecordService {
 
     public Optional<MedicalRecord> getMedicalRecordById(final Long id) {
 
-        return MedicalRecordRepository.findById(id);
+        return medicalRecordRepository.findById(id);
     }
 
     public Iterable<MedicalRecord> getMedicalRecord() {
