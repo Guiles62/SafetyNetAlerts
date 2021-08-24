@@ -1,15 +1,12 @@
 package com.safetynet.safetynetalerts.service;
 
 import com.safetynet.safetynetalerts.model.FireStation;
-import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.FireStationRepository;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
-@Data
 public class FireStationService {
 
     @Autowired
@@ -26,6 +23,7 @@ public class FireStationService {
     }
 
     public void deleteFireStation(final Long id) {
+
         fireStationRepository.deleteById(id);
     }
 

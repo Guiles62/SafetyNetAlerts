@@ -1,11 +1,9 @@
 package com.safetynet.safetynetalerts.model;
 
-import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Data
 @Table(name="person")
 public class Person {
 
