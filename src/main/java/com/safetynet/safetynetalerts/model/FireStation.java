@@ -16,26 +16,18 @@ import javax.persistence.Table;
 public class FireStation {
 
 
-    @Id
-    private long id;
+
     @Column(name="address")
     private String address;
     private int station;
 
 
-    public FireStation(long id, String address, int station) {
-        this.id = id;
+    public FireStation(String address, int station) {
+
         this.address = address;
         this.station = station;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getAddress() {
         return address;

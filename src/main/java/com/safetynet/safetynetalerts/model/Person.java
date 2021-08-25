@@ -7,20 +7,18 @@ import javax.persistence.*;
 @Table(name="person")
 public class Person {
 
-    @Id
-    private long id;
     @Column(name="firstname")
     private String firstname;
     @Column(name = "lastname")
     private String lastname;
     private String address;
     private String city;
-    private String zip;
+    private int zip;
     private String phone;
     private String email;
 
-    public Person(long id, String firstname, String lastname, String address, String city, String zip, String phone, String email) {
-        this.id = id;
+    public Person(String firstname, String lastname, String address, String city, int zip, String phone, String email) {
+
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
@@ -31,13 +29,7 @@ public class Person {
     }
 
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getFirstname() {
         return firstname;
@@ -71,11 +63,11 @@ public class Person {
         this.city = city;
     }
 
-    public String getZip() {
+    public int getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    public void setZip(int zip) {
         this.zip = zip;
     }
 

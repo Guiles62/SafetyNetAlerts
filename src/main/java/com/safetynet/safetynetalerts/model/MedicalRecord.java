@@ -10,8 +10,7 @@ import java.util.List;
 @Table(name="medicalRecord")
 public class MedicalRecord {
 
-    @Id
-    private long id;
+
     @Column(name = "firstname")
     private String firstname;
     @Column(name = "lastname")
@@ -20,8 +19,8 @@ public class MedicalRecord {
     private String medications;
     private String allergies;
 
-    public MedicalRecord(long id, String firstname, String lastname, Date birthdate, String medications, String allergies) {
-        this.id = id;
+    public MedicalRecord(String firstname, String lastname, Date birthdate, String medications, String allergies) {
+
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthdate = birthdate;
@@ -29,9 +28,7 @@ public class MedicalRecord {
         this.allergies = allergies;
     }
 
-    public MedicalRecord(long id) {
-        this.id = id;
-    }
+
 
     public String getFirstname() {
         return firstname;
