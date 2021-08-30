@@ -1,12 +1,13 @@
 package com.safetynet.safetynetalerts.repository;
 
+import com.safetynet.safetynetalerts.model.FireStation;
+import com.safetynet.safetynetalerts.model.MedicalRecord;
 import com.safetynet.safetynetalerts.model.Person;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class JsonReadFileRepository {
                         personObject.get("lastName").toString(),
                         personObject.get("address").toString(),
                         personObject.get("city").toString(),
-                        (Integer) personObject.get("zip"),
+                        personObject.get("zip").toString(),
                         personObject.get("email").toString(),
                         personObject.get("phone").toString()
                 ));
@@ -55,6 +56,64 @@ public class JsonReadFileRepository {
 
 
 
+    }
+    public ArrayList<FireStation>readFireStationList(){
+
+        JSONParser fireStationParser = new JSONParser();
+        JSONArray fireStationList = new JSONArray();
+        JSONObject fireStationObject = new JSONObject();
+
+        try {
+            Object obj = fireStationParser.parse(new FileReader(filePath));
+            fireStationObject = (JSONObject) obj;
+            fireStationList = (JSONArray) fireStationObject.get("firestation");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<FireStation> listOfFireStation = new ArrayList<>();
+        for (int i = 0; i < fireStationList.size(); i++) {
+            listOfFireStation.add(new FireStation(
+                    fireStationObject.get("adress").toString(),
+                    fireStationObject.get("station").toString()
+            ));
+        }
+        return listOfFireStation;
+    }
+
+    public ArrayList<MedicalRecord> readMedicalRecordsList(){
+
+        JSONParser medicalRecordParser = new JSONParser();
+        JSONArray medicalRecordList = new JSONArray();
+        JSONObject medicalRecordObject = new JSONObject();
+
+        try {
+            Object obj = medicalRecordParser.parse(new FileReader(filePath));
+            medicalRecordObject = (JSONObject) obj;
+            medicalRecordList = (JSONArray) medicalRecordObject.get("medicalrecords");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<MedicalRecord> listOfMedicalRecord = new ArrayList<>();
+        for (int i = 0; i < medicalRecordList.size(); i++) {
+            listOfMedicalRecord.add(new MedicalRecord(
+                    medicalRecordObject.get("firstname").toString(),
+                    medicalRecordObject.get("lastname").toString(),
+                    medicalRecordObject.get("birthdate").toString(),
+                    medicalRecordObject.get("medications").toString(),
+                    medicalRecordObject.get("allergies").toString()
+            ));
+        }
+        return listOfMedicalRecord;
     }
 
 }

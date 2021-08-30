@@ -1,28 +1,15 @@
 package com.safetynet.safetynetalerts.model;
 
 
-
-
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-
-
-@Entity
-@Table(name="fireStation")
 public class FireStation {
 
 
 
-    @Column(name="address")
     private String address;
-    private int station;
+    private String station;
 
 
-    public FireStation(String address, int station) {
+    public FireStation(String address, String station) {
 
         this.address = address;
         this.station = station;
@@ -37,11 +24,11 @@ public class FireStation {
         this.address = address;
     }
 
-    public int getStation() {
+    public String getStation() {
         return station;
     }
 
-    public void setStation(int station) {
+    public void setStation(String station) {
         this.station = station;
     }
 

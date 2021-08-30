@@ -1,29 +1,34 @@
 package com.safetynet.safetynetalerts.service;
 import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.ArrayList;
 import java.util.Optional;
 
 
 @Service
 public class PersonService {
 
-    @Autowired
+
     private PersonRepository personRepository;
+    private Person person;
+
+
 
     public Optional<Person> getPersonById(final Long id) {
-
         return personRepository.findById(id);
     }
 
     public Iterable<Person> getPerson() {
-        return personRepository.findAll();
+        personRepository.personList();
+        return getPerson();
     }
 
-    public void deletePerson(final Long id) {
-        personRepository.deleteById(id);
+    public void deletePerson(Person person) {
+
+        personRepository.delete(person);
     }
 
     public Person savePerson(Person person) {

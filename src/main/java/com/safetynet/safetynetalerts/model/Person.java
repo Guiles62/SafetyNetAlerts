@@ -1,23 +1,17 @@
 package com.safetynet.safetynetalerts.model;
 
 
-import javax.persistence.*;
-
-@Entity
-@Table(name="person")
 public class Person {
 
-    @Column(name="firstname")
     private String firstname;
-    @Column(name = "lastname")
     private String lastname;
     private String address;
     private String city;
-    private int zip;
+    private String zip;
     private String phone;
     private String email;
 
-    public Person(String firstname, String lastname, String address, String city, int zip, String phone, String email) {
+    public Person(String firstname, String lastname, String address, String city, String zip, String phone, String email) {
 
         this.firstname = firstname;
         this.lastname = lastname;
@@ -27,7 +21,6 @@ public class Person {
         this.phone = phone;
         this.email = email;
     }
-
 
 
 
@@ -63,11 +56,11 @@ public class Person {
         this.city = city;
     }
 
-    public int getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(int zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 

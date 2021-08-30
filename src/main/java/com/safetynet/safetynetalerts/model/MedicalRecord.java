@@ -1,25 +1,21 @@
 package com.safetynet.safetynetalerts.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
-@Entity
-@Table(name="medicalRecord")
+
+
 public class MedicalRecord {
 
 
-    @Column(name = "firstname")
+
+
     private String firstname;
-    @Column(name = "lastname")
+
     private String lastname;
-    private Date birthdate;
+    private String birthdate;
     private String medications;
     private String allergies;
 
-    public MedicalRecord(String firstname, String lastname, Date birthdate, String medications, String allergies) {
+    public MedicalRecord(String firstname, String lastname, String birthdate, String medications, String allergies) {
 
         this.firstname = firstname;
         this.lastname = lastname;
@@ -46,11 +42,11 @@ public class MedicalRecord {
         this.lastname = lastname;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

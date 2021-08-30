@@ -13,6 +13,9 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
+
+
+
     @GetMapping(value ="person")
     public Iterable <Person> getPerson(){
         return personService.getPerson();
@@ -30,8 +33,9 @@ public class PersonController {
 
     }
     @DeleteMapping(value = "person")
-    public void deletePerson(long id){
-        personService.deletePerson(id);
+    public void deletePerson(Person person){
+
+        personService.deletePerson(person);
     }
 
 }

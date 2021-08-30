@@ -4,13 +4,13 @@ import com.safetynet.safetynetalerts.model.MedicalRecord;
 import com.safetynet.safetynetalerts.repository.MedicalRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
+
 @Service
 public class MedicalRecordService {
 
-    @Autowired
-    private MedicalRecordRepository medicalRecordRepository;
+
+    MedicalRecordRepository medicalRecordRepository;
 
     public Optional<MedicalRecord> getMedicalRecordById(final Long id) {
 
