@@ -18,7 +18,7 @@ import java.util.ArrayList;
 @Repository
 public class JsonReadFileRepository {
 
-    protected static String filePath = "data.json";
+    protected static String filePath = "src/main/resources/json/data.json";
 
     public ArrayList<Person> readPersonList() {
 
@@ -30,7 +30,7 @@ public class JsonReadFileRepository {
         try {
             Object obj = personParser.parse(new FileReader(filePath));
             personObject = (JSONObject) obj;
-            personList = (JSONArray) personObject.get("person");
+            personList = (JSONArray) personObject.get("persons");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -42,15 +42,16 @@ public class JsonReadFileRepository {
 
         ArrayList<Person> listOfPerson = new ArrayList<>();
             for (int i = 0; i < personList.size(); i++) {
+                JSONObject personListValue = (JSONObject) personList.get(i);
                 listOfPerson.add(new Person(
-                        personObject.get("firstname").toString(),
-                        personObject.get("lastName").toString(),
-                        personObject.get("address").toString(),
-                        personObject.get("city").toString(),
-                        personObject.get("zip").toString(),
-                        personObject.get("email").toString(),
-                        personObject.get("phone").toString()
-                ));
+                        personListValue.get("firstName").toString(),
+                        personListValue.get("lastName").toString(),
+                        personListValue.get("address").toString(),
+                        personListValue.get("city").toString(),
+                        personListValue.get("zip").toString(),
+                        personListValue.get("email").toString(),
+                        personListValue.get("phone").toString()));
+
             }
                 return listOfPerson;
 
@@ -66,7 +67,7 @@ public class JsonReadFileRepository {
         try {
             Object obj = fireStationParser.parse(new FileReader(filePath));
             fireStationObject = (JSONObject) obj;
-            fireStationList = (JSONArray) fireStationObject.get("firestation");
+            fireStationList = (JSONArray) fireStationObject.get("firestations");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -77,9 +78,10 @@ public class JsonReadFileRepository {
 
         ArrayList<FireStation> listOfFireStation = new ArrayList<>();
         for (int i = 0; i < fireStationList.size(); i++) {
+            JSONObject fireStationListValue = (JSONObject) fireStationList.get(i);
             listOfFireStation.add(new FireStation(
-                    fireStationObject.get("adress").toString(),
-                    fireStationObject.get("station").toString()
+                    fireStationListValue.get("address").toString(),
+                    fireStationListValue.get("station").toString()
             ));
         }
         return listOfFireStation;
@@ -105,12 +107,13 @@ public class JsonReadFileRepository {
 
         ArrayList<MedicalRecord> listOfMedicalRecord = new ArrayList<>();
         for (int i = 0; i < medicalRecordList.size(); i++) {
+            JSONObject medicalRecordListValue = (JSONObject) medicalRecordList.get(i);
             listOfMedicalRecord.add(new MedicalRecord(
-                    medicalRecordObject.get("firstname").toString(),
-                    medicalRecordObject.get("lastname").toString(),
-                    medicalRecordObject.get("birthdate").toString(),
-                    medicalRecordObject.get("medications").toString(),
-                    medicalRecordObject.get("allergies").toString()
+                    medicalRecordListValue.get("firstName").toString(),
+                    medicalRecordListValue.get("lastName").toString(),
+                    medicalRecordListValue.get("birthdate").toString(),
+                    medicalRecordListValue.get("medications").toString(),
+                    medicalRecordListValue.get("allergies").toString()
             ));
         }
         return listOfMedicalRecord;
