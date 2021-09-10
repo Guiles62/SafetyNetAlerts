@@ -1,6 +1,6 @@
 package com.safetynet.safetynetalerts.model;
 
-import java.util.Date;
+
 
 
 public class MedicalRecord {
@@ -9,7 +9,6 @@ public class MedicalRecord {
 
 
     private String firstname;
-
     private String lastname;
     private String birthdate;
     private String medications;

@@ -13,7 +13,7 @@ public class PersonService {
 
     @Autowired
     PersonRepository personRepository;
-    private String name;
+
 
 
     public ArrayList<Person> getPersons() {
@@ -50,7 +50,7 @@ public class PersonService {
         for (int i = 0; i < updateAPerson.size(); i++) {
             if (updateAPerson.get(i).getFirstname().contains(uPerson.getFirstname())) {
                 updateAPerson.set(i, person);
-                return person;
+                return updateAPerson.get(i);
             }
 
         }
