@@ -15,11 +15,30 @@ public class PersonController {
 
 
     @GetMapping(value ="person")
-    public ArrayList<Person> getPerson(){
-        ArrayList<Person> getPersonList = personService.getPerson();
+    public ArrayList<Person> getPersons(){
+        ArrayList<Person> getPersonList = personService.getPersons();
         return getPersonList;
     }
+    @GetMapping(value ="person/{name}")
+    public Person getPerson(@PathVariable String name){
+        Person person = personService.findPerson(name);
+        return person;
+    }
+    @PostMapping(value ="person/addperson" )
+    public ArrayList<Person> addPerson(@RequestBody Person person){
+        ArrayList<Person> addPersonList = personService.addPerson(person);
+        return addPersonList;
+    }
+    @PutMapping(value="person/{name}")
+    public Person updatePerson(@RequestBody Person person,@PathVariable String name){
+        Person uPerson = personService.updatePerson(person,name);
+        return uPerson;
+    }
 
-
+    @DeleteMapping(value ="person")
+    public ArrayList<Person> deletePerson(Person person){
+        ArrayList<Person> deletePersonList = personService.deletePerson(person);
+        return deletePersonList;
+    }
 
 }

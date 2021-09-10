@@ -49,8 +49,8 @@ public class JsonReadFileRepository {
                         personListValue.get("address").toString(),
                         personListValue.get("city").toString(),
                         personListValue.get("zip").toString(),
-                        personListValue.get("email").toString(),
-                        personListValue.get("phone").toString()));
+                        personListValue.get("phone").toString(),
+                        personListValue.get("email").toString()));
 
             }
                 return listOfPerson;
@@ -118,5 +118,7 @@ public class JsonReadFileRepository {
         }
         return listOfMedicalRecord;
     }
+
+
 
 }

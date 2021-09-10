@@ -1,6 +1,7 @@
 package com.safetynet.safetynetalerts.model;
 
 
+
 public class Person {
 
     private String firstname;
@@ -11,7 +12,9 @@ public class Person {
     private String phone;
     private String email;
 
+
     public Person(String firstname, String lastname, String address, String city, String zip, String phone, String email) {
+
 
         this.firstname = firstname;
         this.lastname = lastname;
@@ -21,7 +24,6 @@ public class Person {
         this.phone = phone;
         this.email = email;
     }
-
 
 
     public String getFirstname() {

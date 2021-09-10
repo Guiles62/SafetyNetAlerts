@@ -17,4 +17,15 @@ public class FireStationService {
         ArrayList<FireStation> getFireStationList = fireStationRepository.fireStationList();
         return getFireStationList;
     }
+
+    public ArrayList<FireStation> addFireStation(FireStation fireStation){
+        ArrayList<FireStation> addFireStationList = fireStationRepository.fireStationList();
+        addFireStationList.add(fireStation);
+        return addFireStationList;
+    }
+    public ArrayList<FireStation> deleteFirestation(FireStation fireStation){
+        ArrayList<FireStation> deleteFireStationList = fireStationRepository.fireStationList();
+        deleteFireStationList.remove(fireStation);
+        return deleteFireStationList;
+    }
 }

@@ -19,6 +19,16 @@ public class MedicalRecordService {
         ArrayList<MedicalRecord> getMedicalRecordList = medicalRecordRepository.medicalRecordList();
         return getMedicalRecordList;
     }
+    public ArrayList<MedicalRecord> addMedicalRecord(MedicalRecord medicalRecord){
+        ArrayList<MedicalRecord> addMedicalRecordList = medicalRecordRepository.medicalRecordList();
+        addMedicalRecordList.add(medicalRecord);
+        return addMedicalRecordList;
+    }
+    public ArrayList<MedicalRecord> deleteMedicalRecord(MedicalRecord medicalRecord){
+        ArrayList<MedicalRecord> deleteMedicalRecordList = medicalRecordRepository.medicalRecordList();
+        deleteMedicalRecordList.remove(medicalRecord);
+        return deleteMedicalRecordList;
+    }
 
 
 
