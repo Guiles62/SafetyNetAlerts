@@ -2,8 +2,11 @@ package com.safetynet.safetynetalerts.controller;
 
 import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.service.PersonService;
+import com.safetynet.safetynetalerts.service.ReadDataFromService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.GeneratedValue;
 import java.util.ArrayList;
 
 
@@ -12,6 +15,8 @@ public class PersonController {
 
     @Autowired
     PersonService personService;
+    @Autowired
+    ReadDataFromService readDataFromService;
 
 
     @GetMapping(value ="person")
@@ -39,6 +44,16 @@ public class PersonController {
     public ArrayList<Person> deletePerson(Person person){
         ArrayList<Person> deletePersonList = personService.deletePerson(person);
         return deletePersonList;
+    }
+    @GetMapping(value = "communityEmail/{city}")
+    public ArrayList<String> personsMail(@PathVariable String city){
+        ArrayList<String> mailOfPersons = personService.getMailPersons(city);
+        return mailOfPersons;
+    }
+    @GetMapping(value = "personInfo/{lastname}")
+    public ArrayList<String>personListMedication(@PathVariable String lastname){
+        ArrayList<String>medicationByPerson = readDataFromService.personListMedication(lastname);
+        return medicationByPerson;
     }
 
 }

@@ -57,4 +57,16 @@ public class PersonService {
         return updatePerson(person,name);
     }
 
+    public ArrayList<String> getMailPersons(String city) {
+        ArrayList<Person> getPersonList = personRepository.personList();
+        ArrayList<String> getPersonsMail = new ArrayList<>();
+        for(int i = 0; i< getPersonList.size(); i++){
+            if (getPersonList.get(i).getCity().contains(city)) {
+                getPersonsMail.add(getPersonList.get(i).getFirstname() + getPersonList.get(i).getLastname() + getPersonList.get(i).getEmail());
+
+            }
+        }
+        return getPersonsMail;
+    }
+
 }

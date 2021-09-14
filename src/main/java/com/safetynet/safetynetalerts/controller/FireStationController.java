@@ -2,6 +2,7 @@ package com.safetynet.safetynetalerts.controller;
 
 import com.safetynet.safetynetalerts.model.FireStation;
 import com.safetynet.safetynetalerts.service.FireStationService;
+import com.safetynet.safetynetalerts.service.ReadDataFromService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ public class FireStationController {
 
     @Autowired
     FireStationService fireStationService;
+    @Autowired
+    ReadDataFromService readDataFromService;
 
     @GetMapping(value = "firestation")
     public ArrayList<FireStation> getFireStation(){
@@ -38,6 +41,7 @@ public class FireStationController {
         ArrayList<FireStation> deleteFireStationList = fireStationService.deleteFireStation(fireStation);
         return deleteFireStationList;
     }
+
 
 
 }
