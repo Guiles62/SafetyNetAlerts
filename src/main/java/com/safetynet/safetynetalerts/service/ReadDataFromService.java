@@ -102,4 +102,23 @@ public class ReadDataFromService {
         return listOfPersonsByAddress;
     }
 
+    public ArrayList<String> phoneByFireStation(String station){
+
+        ArrayList<Person> personsList = personService.getPersons();
+        ArrayList<FireStation> fireStationsList = fireStationService.getFireStation();
+        ArrayList<String> phoneListByStation = new ArrayList<>();
+
+        for (int i=0; i<fireStationsList.size(); i++){
+            if (fireStationsList.get(i).getStation().contains(station)){
+                String fireStationAddress = fireStationsList.get(i).getAddress();
+                for (int j=0; j<personsList.size(); j++){
+                    if( personsList.get(j).getAddress().contains(fireStationAddress)){
+                        phoneListByStation.add(personsList.get(j).getPhone());
+                            }
+                        }
+                    }
+                }
+        return phoneListByStation;
+    }
+
 }
