@@ -57,5 +57,11 @@ public class PersonController {
         ArrayList<String>medicationByPerson = readDataFromService.personListMedication(lastname);
         return medicationByPerson;
     }
+    // donne la liste des personnes par adresse avec le numéro de firestation dédiée
+    @GetMapping(value = "fire/{address}")
+    public ArrayList<String> personListWithFireStationNumber(@PathVariable String address){
+        ArrayList<String> personList = readDataFromService.fireStationByPersonAddress(address);
+        return personList;
+    }
 
 }

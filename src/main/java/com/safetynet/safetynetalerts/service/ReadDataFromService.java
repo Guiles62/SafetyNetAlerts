@@ -74,6 +74,32 @@ public class ReadDataFromService {
         return personsListByStation;
 
     }
+    public ArrayList<String> fireStationByPersonAddress(String address){
+        ArrayList<Person> personsList = personService.getPersons();
+        ArrayList<FireStation> fireStationsList = fireStationService.getFireStation();
+        ArrayList<MedicalRecord> medicalRecordsList = medicalRecordService.getMedicalRecord();
+        ArrayList<String> listOfPersonsByAddress = new ArrayList<>();
 
+        for (int i=0; i<personsList.size(); i++){
+            if (personsList.get(i).getAddress().contains(address)){
+                listOfPersonsByAddress.add(personsList.get(i).getFirstname());
+                listOfPersonsByAddress.add(personsList.get(i).getLastname());
+                listOfPersonsByAddress.add(personsList.get(i).getPhone());
+                for (int j=0; j<medicalRecordsList.size(); j++){
+                    if(medicalRecordsList.get(j).getFirstname().contains(personsList.get(i).getFirstname())){
+                        listOfPersonsByAddress.add(medicalRecordsList.get(j).getBirthdate());
+                        listOfPersonsByAddress.add(medicalRecordsList.get(j).getMedications());
+                        listOfPersonsByAddress.add(medicalRecordsList.get(j).getAllergies());
+                        for (int k=0; k<fireStationsList.size(); k++){
+                            if(fireStationsList.get(k).getAddress().contains(personsList.get(i).getAddress())){
+                                listOfPersonsByAddress.add(fireStationsList.get(k).getStation());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return listOfPersonsByAddress;
+    }
 
 }
