@@ -45,11 +45,13 @@ public class PersonController {
         ArrayList<Person> deletePersonList = personService.deletePerson(person);
         return deletePersonList;
     }
+    // donne la liste des mails des habitants de la ville
     @GetMapping(value = "communityEmail/{city}")
     public ArrayList<String> personsMail(@PathVariable String city){
         ArrayList<String> mailOfPersons = personService.getMailPersons(city);
         return mailOfPersons;
     }
+    // donne les infos sur la médications de personnes
     @GetMapping(value = "personInfo/{lastname}")
     public ArrayList<String>personListMedication(@PathVariable String lastname){
         ArrayList<String>medicationByPerson = readDataFromService.personListMedication(lastname);

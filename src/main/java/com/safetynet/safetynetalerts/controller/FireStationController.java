@@ -41,6 +41,12 @@ public class FireStationController {
         ArrayList<FireStation> deleteFireStationList = fireStationService.deleteFireStation(fireStation);
         return deleteFireStationList;
     }
+    // donne la liste des personnes ainsi que leur médications par numéro de carserne
+    @GetMapping(value = "flood/{station}")
+    public ArrayList<String> personsByFireStation(@PathVariable String station){
+        ArrayList<String> listOfPersonsByFireStation = readDataFromService.personsByStation(station);
+        return listOfPersonsByFireStation;
+    }
 
 
 
