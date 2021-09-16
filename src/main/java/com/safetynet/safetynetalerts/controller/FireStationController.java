@@ -48,7 +48,7 @@ public class FireStationController {
         return listOfPersonsByFireStation;
     }
     // donne la liste des numéros de téléphone des habitants par rapport au numéro de station
-    @GetMapping(value = "phonealert/{station}")
+    @GetMapping(value = "phoneAlert/{station}")
     public ArrayList<String> phoneListByStation(@PathVariable String station){
         ArrayList<String> phoneList = readDataFromService.phoneByFireStation(station);
         return phoneList;

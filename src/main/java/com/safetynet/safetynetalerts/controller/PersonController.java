@@ -51,7 +51,7 @@ public class PersonController {
         ArrayList<String> mailOfPersons = personService.getMailPersons(city);
         return mailOfPersons;
     }
-    // donne les infos sur la médications de personnes
+    // donne les infos sur la médication de personnes
     @GetMapping(value = "personInfo/{lastname}")
     public ArrayList<String>personListMedication(@PathVariable String lastname){
         ArrayList<String>medicationByPerson = readDataFromService.personListMedication(lastname);
@@ -62,6 +62,12 @@ public class PersonController {
     public ArrayList<String> personListWithFireStationNumber(@PathVariable String address){
         ArrayList<String> personList = readDataFromService.fireStationByPersonAddress(address);
         return personList;
+    }
+    // donne la liste des enfants de moins de 18 ans a une adresse donnée ainsi que les personnes qui y habitent
+    @GetMapping ( value = "childAlert/{address}")
+    public ArrayList<String> listOfChildByAddress(@PathVariable String address){
+        ArrayList<String> listOfChild = readDataFromService.childList(address);
+        return listOfChild;
     }
 
 }

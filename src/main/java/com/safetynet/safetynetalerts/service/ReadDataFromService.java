@@ -7,6 +7,9 @@ import com.safetynet.safetynetalerts.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 @Service
@@ -120,5 +123,28 @@ public class ReadDataFromService {
                 }
         return phoneListByStation;
     }
+    public ArrayList<String> childList (String address) {
+        ArrayList<Person> personsList = personService.getPersons();
+        ArrayList<MedicalRecord> medicalRecordsList = medicalRecordService.getMedicalRecord();
+        ArrayList<String> childListByAddress = new ArrayList<>();
+        for (int i = 0; i < personsList.size(); i++) {
+            if (personsList.get(i).getAddress().contains(address)) {
+                for (int j = 0; j < medicalRecordsList.size(); j++) {
+                    if (medicalRecordsList.get(j).getFirstname().contains(personsList.get(i).getFirstname())) {
+                        String strDate = medicalRecordsList.get(j).getBirthdate();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                        LocalDate date = LocalDate.parse(strDate, formatter);
+                        LocalDate currentDate = LocalDate.now();
+                        if ((ChronoUnit.YEARS.between(date, currentDate)) < 18) {
+                            childListByAddress.add(personsList.get(i).getFirstname());
+                            childListByAddress.add(personsList.get(i).getLastname());
+                            childListByAddress.add(medicalRecordsList.get(j).getBirthdate());
+                        }
 
+                    }
+                }
+            }
+        }
+        return childListByAddress;
+    }
 }
