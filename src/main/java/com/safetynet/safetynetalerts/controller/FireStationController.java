@@ -1,8 +1,10 @@
 package com.safetynet.safetynetalerts.controller;
 
+import com.safetynet.safetynetalerts.DTO.FireStationByPersonAddressDTO;
+import com.safetynet.safetynetalerts.DTO.FloodStationDTO;
+import com.safetynet.safetynetalerts.DTO.PhoneAlertDTO;
 import com.safetynet.safetynetalerts.model.FireStation;
 import com.safetynet.safetynetalerts.service.FireStationService;
-import com.safetynet.safetynetalerts.service.ReadDataFromService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -43,15 +45,21 @@ public class FireStationController {
     }
     // donne la liste des personnes ainsi que leur médications par numéro de carserne
     @GetMapping(value = "flood/{station}")
-    public ArrayList<String> personsByFireStation(@PathVariable String station){
-        ArrayList<String> listOfPersonsByFireStation = readDataFromService.personsByStation(station);
+    public ArrayList<FloodStationDTO> personsByFireStation(@PathVariable String station){
+        ArrayList<FloodStationDTO> listOfPersonsByFireStation = fireStationService.personsByStation(station);
         return listOfPersonsByFireStation;
     }
     // donne la liste des numéros de téléphone des habitants par rapport au numéro de station
     @GetMapping(value = "phoneAlert/{station}")
-    public ArrayList<String> phoneListByStation(@PathVariable String station){
-        ArrayList<String> phoneList = readDataFromService.phoneByFireStation(station);
+    public ArrayList<PhoneAlertDTO> phoneListByStation(@PathVariable String station){
+        ArrayList<PhoneAlertDTO> phoneList = fireStationService.phoneByFireStation(station);
         return phoneList;
+    }
+    // donne la liste des personnes par adresse avec le numéro de firestation dédiée
+    @GetMapping(value = "fire/{address}")
+    public ArrayList<FireStationByPersonAddressDTO> personListWithFireStationNumber(@PathVariable String address){
+        ArrayList<FireStationByPersonAddressDTO> personList = fireStationService.fireStationByPersonAddress(address);
+        return personList;
     }
 
 

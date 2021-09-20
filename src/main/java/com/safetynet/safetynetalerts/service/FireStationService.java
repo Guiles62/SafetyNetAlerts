@@ -1,6 +1,11 @@
 package com.safetynet.safetynetalerts.service;
 
+import com.safetynet.safetynetalerts.DTO.FireStationByPersonAddressDTO;
+import com.safetynet.safetynetalerts.DTO.FloodStationDTO;
+import com.safetynet.safetynetalerts.DTO.PhoneAlertDTO;
 import com.safetynet.safetynetalerts.model.FireStation;
+import com.safetynet.safetynetalerts.model.MedicalRecord;
+import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.FireStationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +54,83 @@ public class FireStationService {
 
         }
         return updateFireStation(fireStation,address);
+    }
+    public ArrayList<FloodStationDTO> personsByStation(String station){
+        ArrayList<Person> personsList = fireStationRepository.personList();
+        ArrayList<FireStation> fireStationsList = fireStationRepository.fireStationList();
+        ArrayList<MedicalRecord> medicalRecordsList = fireStationRepository.medicalRecordsList();
+        ArrayList<FloodStationDTO> personsListByStation = new ArrayList<>();
+
+        for (int i=0; i<fireStationsList.size(); i++){
+            if (fireStationsList.get(i).getStation().contains(station)){
+                String fireStationAddress = fireStationsList.get(i).getAddress();
+                for (int j=0; j<personsList.size(); j++){
+                    if( personsList.get(j).getAddress().contains(fireStationAddress)){
+                        for(int k=0; k<medicalRecordsList.size(); k++){
+                            if(medicalRecordsList.get(k).getFirstname().contains(personsList.get(j).getFirstname())){
+                                personsListByStation.add( new FloodStationDTO(
+                                        personsList.get(j).getFirstname(),
+                                        personsList.get(j).getLastname(),
+                                        personsList.get(j).getAddress(),
+                                        personsList.get(j).getPhone(),
+                                        medicalRecordsList.get(k).getBirthdate(),
+                                        medicalRecordsList.get(k).getMedications(),
+                                        medicalRecordsList.get(k).getAllergies()));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return personsListByStation;
+    }
+
+    public ArrayList<FireStationByPersonAddressDTO> fireStationByPersonAddress(String address){
+        ArrayList<Person> personsList = fireStationRepository.personList();
+        ArrayList<FireStation> fireStationsList = fireStationRepository.fireStationList();
+        ArrayList<MedicalRecord> medicalRecordsList = fireStationRepository.medicalRecordsList();
+        ArrayList<FireStationByPersonAddressDTO> listOfPersonsByAddress = new ArrayList<>();
+
+        for (int i=0; i<personsList.size(); i++){
+            if (personsList.get(i).getAddress().contains(address)){
+
+                for (int j=0; j<medicalRecordsList.size(); j++){
+                    if(medicalRecordsList.get(j).getFirstname().contains(personsList.get(i).getFirstname())){
+
+                        for (int k=0; k<fireStationsList.size(); k++){
+                            if(fireStationsList.get(k).getAddress().contains(personsList.get(i).getAddress())){
+                                listOfPersonsByAddress.add( new FireStationByPersonAddressDTO(
+                                        personsList.get(i).getFirstname(),
+                                        personsList.get(i).getLastname(),
+                                        personsList.get(i).getPhone(),
+                                        medicalRecordsList.get(j).getBirthdate(),
+                                        medicalRecordsList.get(j).getMedications(),
+                                        medicalRecordsList.get(j).getAllergies(),
+                                        fireStationsList.get(k).getStation()));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return listOfPersonsByAddress;
+    }
+    public ArrayList<PhoneAlertDTO> phoneByFireStation(String station){
+
+        ArrayList<Person> personsList = fireStationRepository.personList();
+        ArrayList<FireStation> fireStationsList = fireStationRepository.fireStationList();
+        ArrayList<PhoneAlertDTO> phoneListByStation = new ArrayList<>();
+
+        for (int i=0; i<fireStationsList.size(); i++){
+            if (fireStationsList.get(i).getStation().contains(station)){
+                String fireStationAddress = fireStationsList.get(i).getAddress();
+                for (int j=0; j<personsList.size(); j++){
+                    if( personsList.get(j).getAddress().contains(fireStationAddress)){
+                        phoneListByStation.add(new PhoneAlertDTO(personsList.get(j).getPhone()));
+                    }
+                }
+            }
+        }
+        return phoneListByStation;
     }
 }

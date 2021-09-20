@@ -1,9 +1,17 @@
 package com.safetynet.safetynetalerts.service;
 
+import com.safetynet.safetynetalerts.DTO.AdultsListDTO;
+import com.safetynet.safetynetalerts.DTO.ChildrenListDTO;
+import com.safetynet.safetynetalerts.DTO.PersonInfoDTO;
+import com.safetynet.safetynetalerts.model.MedicalRecord;
 import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 
@@ -13,6 +21,7 @@ public class PersonService {
 
     @Autowired
     PersonRepository personRepository;
+
 
 
 
@@ -69,4 +78,91 @@ public class PersonService {
         return getPersonsMail;
     }
 
-}
+    public ArrayList<PersonInfoDTO> personListMedication(String lastname){
+        ArrayList<Person> personsList = personRepository.personList();
+        ArrayList<MedicalRecord> medicalRecordsList = personRepository.medicalList();
+        ArrayList<PersonInfoDTO> medicationOfPersons = new ArrayList<>();
+
+        for (int i =0; i<personsList.size(); i++) {
+            if (personsList.get(i).getLastname().contains(lastname)){
+                for (int j = 0; j<medicalRecordsList.size();j++){
+                    if(medicalRecordsList.get(j).getFirstname().contains(personsList.get(i).getFirstname())){
+                        medicationOfPersons.add(new PersonInfoDTO(
+                        personsList.get(i).getFirstname(),
+                        personsList.get(i).getLastname(),
+                        personsList.get(i).getAddress(),
+                        personsList.get(i).getCity(),
+                        personsList.get(i).getZip(),
+                        personsList.get(i).getEmail(),
+                        medicalRecordsList.get(j).getBirthdate(),
+                        medicalRecordsList.get(j).getMedications(),
+                        medicalRecordsList.get(j).getAllergies()));
+                    }
+                }
+            }
+        }
+        return medicationOfPersons;
+    }
+
+
+    public ArrayList<AdultsListDTO> adultList (String address) {
+        ArrayList<Person> personsList = personRepository.personList();
+        ArrayList<MedicalRecord> medicalRecordsList = personRepository.readMedicalRecordsList();
+        ArrayList<AdultsListDTO> adultsListByAddress = new ArrayList<>();
+        for (int i = 0; i < personsList.size(); i++) {
+            if (personsList.get(i).getAddress().contains(address)) {
+                for (int j = 0; j < medicalRecordsList.size(); j++) {
+                    if (medicalRecordsList.get(j).getFirstname().contains(personsList.get(i).getFirstname())) {
+                        String strDate = medicalRecordsList.get(j).getBirthdate();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                        LocalDate date = LocalDate.parse(strDate, formatter);
+                        LocalDate currentDate = LocalDate.now();
+                        if ((ChronoUnit.YEARS.between(date, currentDate)) > 18) {
+                            adultsListByAddress.add(new AdultsListDTO(
+                                    personsList.get(i).getFirstname(),
+                                    personsList.get(i).getLastname()));
+
+
+                        }
+                    }
+                }
+            }
+        }
+        return adultsListByAddress;
+
+    }
+
+
+    public ArrayList<ChildrenListDTO> childrenList (String address) {
+        ArrayList<Person> personsList = personRepository.personList();
+        ArrayList<MedicalRecord> medicalRecordsList = personRepository.readMedicalRecordsList();
+        ArrayList<AdultsListDTO> adultsList = adultList(address);
+        ArrayList<ChildrenListDTO> childListByAddress = new ArrayList<>();
+        for (int i = 0; i < personsList.size(); i++) {
+            if (personsList.get(i).getAddress().contains(address)) {
+                for (int j = 0; j < medicalRecordsList.size(); j++) {
+                    if (medicalRecordsList.get(j).getFirstname().contains(personsList.get(i).getFirstname())) {
+                        String strDate = medicalRecordsList.get(j).getBirthdate();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                        LocalDate date = LocalDate.parse(strDate, formatter);
+                        LocalDate currentDate = LocalDate.now();
+                        if ((ChronoUnit.YEARS.between(date, currentDate)) < 18) {
+                            childListByAddress.add(new ChildrenListDTO(
+                                    personsList.get(i).getFirstname(),
+                                    personsList.get(i).getLastname(),
+                                    medicalRecordsList.get(j).getBirthdate(),
+                                    adultsList));
+
+                        }
+                        }
+                    }
+                }
+            }
+            return childListByAddress;
+
+        }
+
+
+
+    }
+
