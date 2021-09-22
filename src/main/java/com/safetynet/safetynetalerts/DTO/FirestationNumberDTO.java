@@ -2,28 +2,23 @@ package com.safetynet.safetynetalerts.DTO;
 
 public class FirestationNumberDTO {
 
-    int numberOfStation;
+
     String firstname;
     String lastname;
     String address;
-    int countOfAdult;
-    int countOfChildren;
+    String city;
+    String zip;
+    String phone;
 
-    public FirestationNumberDTO(int numberOfStation, String firstname, String lastname, String address, int countOfAdult, int countOfChildren) {
-        this.numberOfStation = numberOfStation;
+
+    public FirestationNumberDTO(String firstname, String lastname, String address, String city, String zip, String phone) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.address = address;
-        this.countOfAdult = countOfAdult;
-        this.countOfChildren = countOfChildren;
-    }
+        this.city = city;
+        this.zip = zip;
+        this.phone = phone;
 
-    public int getNumberOfStation() {
-        return numberOfStation;
-    }
-
-    public void setNumberOfStation(int numberOfStation) {
-        this.numberOfStation = numberOfStation;
     }
 
     public String getFirstname() {
@@ -50,19 +45,29 @@ public class FirestationNumberDTO {
         this.address = address;
     }
 
-    public int getCountOfAdult() {
-        return countOfAdult;
+    public String getCity() {
+        return city;
     }
 
-    public void setCountOfAdult(int countOfAdult) {
-        this.countOfAdult = countOfAdult;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public int getCountOfChildren() {
-        return countOfChildren;
+    public String getZip() {
+        return zip;
     }
 
-    public void setCountOfChildren(int countOfChildren) {
-        this.countOfChildren = countOfChildren;
+    public void setZip(String zip) {
+        this.zip = zip;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
 }

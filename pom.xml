@@ -60,6 +60,10 @@
             <artifactId>jsoniter</artifactId>
             <version>0.9.19</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

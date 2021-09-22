@@ -8,7 +8,8 @@ import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -22,27 +23,31 @@ public class PersonService {
     @Autowired
     PersonRepository personRepository;
 
-
+    private final static Logger logger = LogManager.getLogger("PersonService");
 
 
     public ArrayList<Person> getPersons() {
+        logger.info("safetyGetPersons");
         ArrayList<Person> getPersonList = personRepository.personList();
         return getPersonList;
     }
 
     public ArrayList<Person> addPerson(Person person) {
+        logger.info("safetyAddPerson");
         ArrayList<Person> addPersonList = personRepository.personList();
         addPersonList.add(person);
         return addPersonList;
     }
 
     public ArrayList<Person> deletePerson(Person person) {
+        logger.info("safetyDeletePerson");
         ArrayList<Person> deletePersonOfList = personRepository.personList();
         deletePersonOfList.remove(person);
         return deletePersonOfList;
     }
 
     public Person findPerson(String name) {
+        logger.info("safetyFindPersonByName");
         ArrayList<Person> personName = personRepository.personList();
         for (int i = 0; i < personName.size(); i++) {
             if (personName.get(i).getFirstname().toLowerCase().contains(name)) {
@@ -54,6 +59,7 @@ public class PersonService {
     }
 
     public Person updatePerson(Person person,String name) {
+        logger.info("safetyUpdatePerson");
         ArrayList<Person> updateAPerson = personRepository.personList();
         Person uPerson = findPerson(name);
         for (int i = 0; i < updateAPerson.size(); i++) {
@@ -67,6 +73,7 @@ public class PersonService {
     }
 
     public ArrayList<String> getMailPersons(String city) {
+        logger.info("safetyGetMailPersonsByCity");
         ArrayList<Person> getPersonList = personRepository.personList();
         ArrayList<String> getPersonsMail = new ArrayList<>();
         for(int i = 0; i< getPersonList.size(); i++){
@@ -79,6 +86,7 @@ public class PersonService {
     }
 
     public ArrayList<PersonInfoDTO> personListMedication(String lastname){
+        logger.info("safetyPersonListMedicationByName");
         ArrayList<Person> personsList = personRepository.personList();
         ArrayList<MedicalRecord> medicalRecordsList = personRepository.medicalList();
         ArrayList<PersonInfoDTO> medicationOfPersons = new ArrayList<>();
@@ -106,6 +114,7 @@ public class PersonService {
 
 
     public ArrayList<AdultsListDTO> adultList (String address) {
+        logger.info("safetyAdultList");
         ArrayList<Person> personsList = personRepository.personList();
         ArrayList<MedicalRecord> medicalRecordsList = personRepository.readMedicalRecordsList();
         ArrayList<AdultsListDTO> adultsListByAddress = new ArrayList<>();
@@ -134,6 +143,7 @@ public class PersonService {
 
 
     public ArrayList<ChildrenListDTO> childrenList (String address) {
+        logger.info("safetyChildrenList");
         ArrayList<Person> personsList = personRepository.personList();
         ArrayList<MedicalRecord> medicalRecordsList = personRepository.readMedicalRecordsList();
         ArrayList<AdultsListDTO> adultsList = adultList(address);

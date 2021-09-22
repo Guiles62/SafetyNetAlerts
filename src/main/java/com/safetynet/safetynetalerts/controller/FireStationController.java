@@ -1,8 +1,6 @@
 package com.safetynet.safetynetalerts.controller;
 
-import com.safetynet.safetynetalerts.DTO.FireStationByPersonAddressDTO;
-import com.safetynet.safetynetalerts.DTO.FloodStationDTO;
-import com.safetynet.safetynetalerts.DTO.PhoneAlertDTO;
+import com.safetynet.safetynetalerts.DTO.*;
 import com.safetynet.safetynetalerts.model.FireStation;
 import com.safetynet.safetynetalerts.service.FireStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,7 @@ public class FireStationController {
 
     @Autowired
     FireStationService fireStationService;
-    @Autowired
-    ReadDataFromService readDataFromService;
+
 
     @GetMapping(value = "firestation")
     public ArrayList<FireStation> getFireStation(){
@@ -43,7 +40,7 @@ public class FireStationController {
         ArrayList<FireStation> deleteFireStationList = fireStationService.deleteFireStation(fireStation);
         return deleteFireStationList;
     }
-    // donne la liste des personnes ainsi que leur médications par numéro de carserne
+    // donne la liste des personnes ainsi que leur médication par numéro de caserne
     @GetMapping(value = "flood/{station}")
     public ArrayList<FloodStationDTO> personsByFireStation(@PathVariable String station){
         ArrayList<FloodStationDTO> listOfPersonsByFireStation = fireStationService.personsByStation(station);
@@ -59,6 +56,11 @@ public class FireStationController {
     @GetMapping(value = "fire/{address}")
     public ArrayList<FireStationByPersonAddressDTO> personListWithFireStationNumber(@PathVariable String address){
         ArrayList<FireStationByPersonAddressDTO> personList = fireStationService.fireStationByPersonAddress(address);
+        return personList;
+    }
+    @GetMapping(value = "/fireStation/{station}")
+    public ArrayList<ListByStationNumberWithCountDTO> personsListByStation (@PathVariable String station){
+        ArrayList<ListByStationNumberWithCountDTO> personList = fireStationService.fireStationWithCount(station);
         return personList;
     }
 

@@ -3,6 +3,8 @@ package com.safetynet.safetynetalerts.repository;
 import com.safetynet.safetynetalerts.model.FireStation;
 import com.safetynet.safetynetalerts.model.MedicalRecord;
 import com.safetynet.safetynetalerts.model.Person;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,13 +17,16 @@ import java.util.ArrayList;
 
 
 
+
 @Repository
 public class JsonReadFileRepository {
 
+    private static final Logger logger = LogManager.getLogger("JsonReadFileRepository");
     protected static String filePath = "src/main/resources/json/data.json";
 
     public ArrayList<Person> readPersonList() {
 
+        logger.info("safetyLoadPerson (" + filePath + ")" );
 
         JSONParser personParser = new JSONParser();
         JSONArray personList = new JSONArray();
@@ -60,6 +65,8 @@ public class JsonReadFileRepository {
     }
     public ArrayList<FireStation>readFireStationList(){
 
+        logger.info("safetyLoadFireStation (" + filePath + ")" );
+
         JSONParser fireStationParser = new JSONParser();
         JSONArray fireStationList = new JSONArray();
         JSONObject fireStationObject = new JSONObject();
@@ -88,6 +95,8 @@ public class JsonReadFileRepository {
     }
 
     public ArrayList<MedicalRecord> readMedicalRecordsList(){
+
+        logger.info("safetyLoadMedicalRecord (" + filePath + ")" );
 
         JSONParser medicalRecordParser = new JSONParser();
         JSONArray medicalRecordList = new JSONArray();
