@@ -5,11 +5,13 @@ import com.safetynet.safetynetalerts.repository.PersonRepository;
 import com.safetynet.safetynetalerts.service.PersonService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-
+@SpringBootTest
 public class PersonServiceTest {
 
    private  PersonRepository personRepository;
@@ -17,12 +19,9 @@ public class PersonServiceTest {
    private Person person;
 
 
-    @BeforeEach
-    private void setUp(){
-        personService = new PersonService();
-        personRepository = new PersonRepository();
-        person = new Person("tonton","tutu","00 tt 00","Paris","99999","00000000","mmm@nnn");
-    }
+
+
+
 
     @Test
     public void getPersons(){
@@ -32,6 +31,7 @@ public class PersonServiceTest {
 
     @Test
     public void addPerson(){
+        person = new Person("tonton","tutu","00 tt 00","Paris","99999","00000000","mmm@nnn");
         ArrayList<Person> addPersonList = personService.addPerson(person);
             assertEquals(addPersonList.size(), 24);
    }
