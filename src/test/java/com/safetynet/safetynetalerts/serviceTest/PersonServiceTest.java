@@ -3,19 +3,18 @@ package com.safetynet.safetynetalerts.serviceTest;
 import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.PersonRepository;
 import com.safetynet.safetynetalerts.service.PersonService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+
 
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@SpringBootTest
+
 public class PersonServiceTest {
 
-   private  PersonRepository personRepository;
-   private PersonService personService;
+   private  PersonRepository personRepository = new PersonRepository();
+   private PersonService personService = new PersonService();
    private Person person;
 
 
@@ -43,8 +42,5 @@ public class PersonServiceTest {
         ArrayList<Person> personList = personRepository.readPersonList();
         assertEquals(personList.size(), 23);
    }
-
-
-
 
 }
