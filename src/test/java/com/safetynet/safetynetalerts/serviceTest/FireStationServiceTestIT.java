@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class FireStationServiceTest {
+public class FireStationServiceTestIT {
 
     @Mock
     private FireStationRepository fireStationRepository;
@@ -42,19 +42,6 @@ public class FireStationServiceTest {
         addFireStationTest();
         ArrayList<FireStation> deleteFireStationToList = fireStationService.deleteFireStation(fireStation);
         assertEquals(deleteFireStationToList.size(),13);
-    }
-    @Test
-    public void findFireStationTest(){
-        fireStation = fireStationService.findFireStation("1509 Culver St");
-        assertEquals(fireStation.getStation(),3);
-    }
-    @Test
-    public void updateFireStationTest(){
-        fireStation = new FireStation("15 rue du pape", "5");
-        fireStation.setStation("4");
-        fireStationService.updateFireStation(fireStation,"15 rue du pape" );
-        assertEquals(fireStation.getStation(),4);
-
     }
     @Test
     public void personByStationTest(){

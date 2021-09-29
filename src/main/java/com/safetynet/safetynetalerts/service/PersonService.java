@@ -20,11 +20,15 @@ import java.util.ArrayList;
 @Service
 public class PersonService {
 
-    @Autowired
-    PersonRepository personRepository;
+
+
+    private PersonRepository personRepository;
 
     private final static Logger logger = LogManager.getLogger("PersonService");
 
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     public ArrayList<Person> getPersons() {
         logger.info("safetyGetPersons");
@@ -116,7 +120,7 @@ public class PersonService {
     public ArrayList<AdultsListDTO> adultList (String address) {
         logger.info("safetyAdultList");
         ArrayList<Person> personsList = personRepository.personList();
-        ArrayList<MedicalRecord> medicalRecordsList = personRepository.readMedicalRecordsList();
+        ArrayList<MedicalRecord> medicalRecordsList = personRepository.medicalList();
         ArrayList<AdultsListDTO> adultsListByAddress = new ArrayList<>();
         for (int i = 0; i < personsList.size(); i++) {
             if (personsList.get(i).getAddress().contains(address)) {
@@ -171,8 +175,6 @@ public class PersonService {
             return childListByAddress;
 
         }
-
-
 
     }
 

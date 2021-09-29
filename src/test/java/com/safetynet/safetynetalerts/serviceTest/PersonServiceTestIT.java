@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
-public class PersonServiceTest {
+public class PersonServiceTestIT {
 
     @Mock
     private PersonRepository personRepository;
@@ -45,18 +45,6 @@ public class PersonServiceTest {
        addPersonTest();
        ArrayList<Person> personList = personService.deletePerson(person);
             assertEquals(personList.size(), 23);
-   }
-   @Test
-    public void findPerson(){
-        Person findPerson = personService.findPerson("John");
-            assertEquals(findPerson.getLastname(),"Boyd");
-   }
-   @Test
-    public void updatePersonTest(){
-       addPersonTest();
-       person.setLastname("tata");
-       personService.updatePerson(person,"tonton");
-            assertEquals(person.getLastname(),"tata");
    }
    @Test
     public void getMailsPersonTest(){
