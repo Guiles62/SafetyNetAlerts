@@ -18,6 +18,10 @@ public class MedicalRecordService {
     @Autowired
     MedicalRecordRepository medicalRecordRepository;
 
+    public MedicalRecordService(MedicalRecordRepository medicalRecordRepository) {
+        this.medicalRecordRepository = medicalRecordRepository;
+    }
+
     public ArrayList<MedicalRecord> getMedicalRecord() {
         logger.info("safetyGetMedicalRecord");
         ArrayList<MedicalRecord> getMedicalRecordList = medicalRecordRepository.medicalRecordList();
