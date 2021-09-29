@@ -24,6 +24,10 @@ public class FireStationService {
     @Autowired
     FireStationRepository fireStationRepository;
 
+    public FireStationService(FireStationRepository fireStationRepository) {
+        this.fireStationRepository = fireStationRepository;
+    }
+
     public ArrayList<FireStation> getFireStation() {
         logger.info("safetyGetFireStation");
         ArrayList<FireStation> getFireStationList = fireStationRepository.fireStationList();

@@ -1,16 +1,30 @@
 package com.safetynet.safetynetalerts.PersonControllerTest;
 
 
+import static org.hamcrest.Matchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.safetynet.safetynetalerts.DTO.ChildrenListDTO;
 import com.safetynet.safetynetalerts.controller.PersonController;
+import com.safetynet.safetynetalerts.model.MedicalRecord;
 import com.safetynet.safetynetalerts.model.Person;
+import com.safetynet.safetynetalerts.repository.PersonRepository;
 import com.safetynet.safetynetalerts.service.PersonService;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+
+
 
 
 @WebMvcTest(controllers = PersonController.class)
@@ -20,15 +34,20 @@ public class PersonControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private PersonService personService;
+    private static PersonService personService;
+
+    private static PersonRepository personRepository;
+
 
     @Test
     public void getPersonTest() throws Exception {
+
         mockMvc.perform(get("/person")).andExpect(status().isOk());
     }
     @Test
     public void getPersonByNameTest() throws Exception {
-        mockMvc.perform(get("/person/John")).andExpect(status().isOk());
+
+        mockMvc.perform(get("/person/{John}")).andExpect(status().isOk());
     }
     @Test
     public void addPersonTest() throws Exception {
@@ -36,7 +55,7 @@ public class PersonControllerTest {
                 "tonton",
                 "tata",
                 "rue du 8 mai",
-                "Lile",
+                "lille",
                 "59000",
                 "0600000000",
                 "tonton@gmail.com");
@@ -45,7 +64,7 @@ public class PersonControllerTest {
     }
     @Test
     public void updatePersonTest() throws Exception {
-        mockMvc.perform(put("/person/John")).andExpect(status().isOk());
+        mockMvc.perform(put("/person/tonton")).andExpect(status().isOk());
     }
     @Test
     public void deletePersonTest() throws Exception {
@@ -53,14 +72,16 @@ public class PersonControllerTest {
     }
     @Test
     public void personsMailTest() throws Exception {
-        mockMvc.perform(get("/communityEmail/Culver")).andExpect(status().isOk());
+        mockMvc.perform(get("/communityEmail/lille")).andExpect(status().isOk());
     }
     @Test
     public void personListMedicationTest() throws Exception {
-        mockMvc.perform(get("/personInfo/Boyd")).andExpect(status().isOk());
+        mockMvc.perform(get("/personInfo/tata")).andExpect(status().isOk());
     }
     @Test
     public void childrenByAddressTest() throws Exception {
-        mockMvc.perform(get("/childAlert/1509 Culver St")).andExpect(status().isOk());
+        mockMvc.perform(get("/childAlert/rue du 8 mai")).andExpect(status().isOk());
     }
+
+
 }
