@@ -23,7 +23,7 @@ public class MedicalRecordController {
         ArrayList<MedicalRecord>medicalRecordList = medicalRecordService.getMedicalRecord();
         return medicalRecordList;
     }
-    @PostMapping(value = "medicalrecord")
+    @PostMapping(value = "medicalrecord/addmedicalrecord")
     public ArrayList<MedicalRecord> addMedicalRecord(@RequestBody MedicalRecord medicalRecord){
         logger.info("safetyAddMedicalRecord");
         ArrayList<MedicalRecord>addMedicalRecordList = medicalRecordService.addMedicalRecord(medicalRecord);

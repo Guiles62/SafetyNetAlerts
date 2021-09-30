@@ -56,22 +56,22 @@ public class PersonController {
     }
     // donne la liste des mails des habitants de la ville
     @GetMapping(value = "/communityEmail")
-    public ArrayList<String> personsMail(@RequestParam(value = "city") String city){
+    public ArrayList<String> getPersonsMail(@RequestParam(value = "city") String city){
         logger.info("safetyPersonMailByCity");
         ArrayList<String> mailOfPersons = personService.getMailPersons(city);
         return mailOfPersons;
     }
     // donne les infos sur la médication de personnes
-    @GetMapping(value = "/personInfo/{lastname}")
-    public ArrayList<PersonInfoDTO>personListMedication(@PathVariable String lastname){
+    @GetMapping(value = "/personInfo")
+    public ArrayList<PersonInfoDTO>getPersonListMedication(@RequestParam(value = "lastname") String lastname){
         logger.info("safetyPersonListMedicationBYName");
         ArrayList<PersonInfoDTO>medicationByPerson = personService.personListMedication(lastname);
         return medicationByPerson;
     }
 
     // donne la liste des enfants de moins de 18 ans a une adresse donnée ainsi que les personnes qui y habitent
-    @GetMapping ( value = "/childAlert/{address}")
-    public ArrayList<ChildrenListDTO> listOfChildrenByAddress(@PathVariable String address){
+    @GetMapping ( value = "/childAlert")
+    public ArrayList<ChildrenListDTO> getListOfChildrenByAddress(@RequestParam(value = "address") String address){
         logger.info("safetyListOfChildrenByAddress");
         ArrayList<ChildrenListDTO> listOfChildren = personService.childrenList(address);
         return listOfChildren;

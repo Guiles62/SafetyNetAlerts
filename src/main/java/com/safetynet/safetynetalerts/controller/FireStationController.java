@@ -19,59 +19,59 @@ public class FireStationController {
     FireStationService fireStationService;
 
 
-    @GetMapping(value = "firestation")
+    @GetMapping(value = "/firestation")
     public ArrayList<FireStation> getFireStation(){
         logger.info("safetyGetFireStation");
         ArrayList<FireStation>fireStationList = fireStationService.getFireStation();
         return fireStationList;
     }
-    @GetMapping(value = "firestation/{address}")
+    @GetMapping(value = "/firestation/{address}")
     public FireStation findFireStation (@PathVariable String address){
         logger.info("safetyFindFireStation");
         FireStation fireStation = fireStationService.findFireStation(address);
         return fireStation;
     }
-    @PostMapping(value = "firestation")
+    @PostMapping(value = "/firestation/addfirestation")
     public ArrayList<FireStation> addFireStation(@RequestBody FireStation fireStation){
         logger.info("safetyAddFireStation");
         ArrayList<FireStation> addFireStationList = fireStationService.addFireStation(fireStation);
         return addFireStationList;
     }
-    @PutMapping(value = "firestation/{address}")
+    @PutMapping(value = "/firestation/{address}")
     public FireStation updateFireStation (@RequestBody FireStation fireStation,@PathVariable String address){
         logger.info("safetyUpdateFireStation");
         FireStation uFireStation = fireStationService.updateFireStation(fireStation,address);
         return uFireStation;
     }
-    @DeleteMapping(value = "firestation")
+    @DeleteMapping(value = "/firestation")
     public ArrayList<FireStation> deleteFireStation(FireStation fireStation){
         logger.info("safetyDeleteFireStation");
         ArrayList<FireStation> deleteFireStationList = fireStationService.deleteFireStation(fireStation);
         return deleteFireStationList;
     }
     // donne la liste des personnes ainsi que leur médication par numéro de caserne
-    @GetMapping(value = "flood/{station}")
-    public ArrayList<FloodStationDTO> personsByFireStation(@PathVariable String station){
+    @GetMapping(value = "/flood")
+    public ArrayList<FloodStationDTO> getPersonsByFireStation(@RequestParam(value = "station") String station){
         logger.info("safetyPersonByFireStation");
         ArrayList<FloodStationDTO> listOfPersonsByFireStation = fireStationService.personsByStation(station);
         return listOfPersonsByFireStation;
     }
     // donne la liste des numéros de téléphone des habitants par rapport au numéro de station
-    @GetMapping(value = "phoneAlert/{station}")
-    public ArrayList<PhoneAlertDTO> phoneListByStation(@PathVariable String station){
+    @GetMapping(value = "/phoneAlert")
+    public ArrayList<PhoneAlertDTO> getPhoneListByStation(@RequestParam (value = "station") String station){
         logger.info("safetyPhoneListByStation");
         ArrayList<PhoneAlertDTO> phoneList = fireStationService.phoneByFireStation(station);
         return phoneList;
     }
     // donne la liste des personnes par adresse avec le numéro de firestation dédiée
-    @GetMapping(value = "fire/{address}")
-    public ArrayList<FireStationByPersonAddressDTO> personListWithFireStationNumber(@PathVariable String address){
+    @GetMapping(value = "/fire")
+    public ArrayList<FireStationByPersonAddressDTO> getPersonListWithFireStationNumber(@RequestParam(value = "address") String address){
         logger.info("safetyPersonListWithStationNumber");
         ArrayList<FireStationByPersonAddressDTO> personList = fireStationService.fireStationByPersonAddress(address);
         return personList;
     }
-    @GetMapping(value = "/fireStation/{station}")
-    public ArrayList<ListByStationNumberWithCountDTO> personsListByStation (@PathVariable String station){
+    @GetMapping(value = "/fireStation")
+    public ArrayList<ListByStationNumberWithCountDTO> getPersonsListByStation (@RequestParam(value = "station") String station){
         logger.info("safetyPersonListByStation");
         ArrayList<ListByStationNumberWithCountDTO> personList = fireStationService.fireStationWithCount(station);
         return personList;
