@@ -5,6 +5,8 @@ import com.safetynet.safetynetalerts.model.FireStation;
 import com.safetynet.safetynetalerts.model.MedicalRecord;
 import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.FireStationRepository;
+import com.safetynet.safetynetalerts.repository.MedicalRecordRepository;
+import com.safetynet.safetynetalerts.repository.PersonRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,62 +25,52 @@ public class FireStationService {
 
     @Autowired
     FireStationRepository fireStationRepository;
+    @Autowired
+    PersonRepository personRepository;
+    @Autowired
+    MedicalRecordRepository medicalRecordRepository;
 
-    public FireStationService(FireStationRepository fireStationRepository) {
+    public FireStationService(FireStationRepository fireStationRepository, PersonRepository personRepository, MedicalRecordRepository medicalRecordRepository) {
         this.fireStationRepository = fireStationRepository;
+        this.personRepository = personRepository;
+        this.medicalRecordRepository = medicalRecordRepository;
     }
 
     public ArrayList<FireStation> getFireStation() {
         logger.info("safetyGetFireStation");
-        ArrayList<FireStation> getFireStationList = fireStationRepository.fireStationList();
+        ArrayList<FireStation> getFireStationList = fireStationRepository.getFireStationList();
         return getFireStationList;
     }
 
     public ArrayList<FireStation> addFireStation(FireStation fireStation) {
         logger.info("safetyAddFireStation");
-        ArrayList<FireStation> addFireStationList = fireStationRepository.fireStationList();
-        addFireStationList.add(fireStation);
+        ArrayList<FireStation> addFireStationList = fireStationRepository.addFireStation(fireStation);
         return addFireStationList;
     }
 
     public ArrayList<FireStation> deleteFireStation(FireStation fireStation) {
         logger.info("safetyDeleteFireStation");
-        ArrayList<FireStation> deleteFireStationList = fireStationRepository.fireStationList();
-        deleteFireStationList.remove(fireStation);
+        ArrayList<FireStation> deleteFireStationList = fireStationRepository.deleteFireStation(fireStation);
         return deleteFireStationList;
     }
 
     public FireStation findFireStation(String address) {
         logger.info("safetyFindFireStation");
-        ArrayList<FireStation> fireStationName = fireStationRepository.fireStationList();
-        for (int i = 0; i < fireStationName.size(); i++) {
-            if (fireStationName.get(i).getAddress().toLowerCase().contains(address)) {
-                FireStation fireStationFind = fireStationName.get(i);
-                return fireStationFind;
-            }
-        }
-        return findFireStation(address);
+        FireStation fireStationName = fireStationRepository.findFireStation(address);
+        return fireStationName;
     }
 
     public FireStation updateFireStation(FireStation fireStation, String address) {
         logger.info("safetyUpdateFireStation");
-        ArrayList<FireStation> updateFireStation = fireStationRepository.fireStationList();
-        FireStation uFireStation = findFireStation(address);
-        for (int i = 0; i < updateFireStation.size(); i++) {
-            if (updateFireStation.get(i).getAddress().contains(uFireStation.getAddress())) {
-                updateFireStation.set(i, fireStation);
-                return updateFireStation.get(i);
-            }
-
-        }
+        FireStation updateFireStation = fireStationRepository.updateFireStation(fireStation, address);
         return updateFireStation(fireStation, address);
     }
 
     public ArrayList<FloodStationDTO> personsByStation(String station) {
         logger.info("safetyPersonListByStation");
-        ArrayList<Person> personsList = fireStationRepository.personList();
-        ArrayList<FireStation> fireStationsList = fireStationRepository.fireStationList();
-        ArrayList<MedicalRecord> medicalRecordsList = fireStationRepository.medicalRecordsList();
+        ArrayList<Person> personsList = personRepository.personList();
+        ArrayList<FireStation> fireStationsList = fireStationRepository.getFireStationList();
+        ArrayList<MedicalRecord> medicalRecordsList = medicalRecordRepository.medicalRecordList();
         ArrayList<FloodStationDTO> personsListByStation = new ArrayList<>();
 
         for (int i = 0; i < fireStationsList.size(); i++) {
@@ -107,9 +99,9 @@ public class FireStationService {
 
     public ArrayList<FireStationByPersonAddressDTO> fireStationByPersonAddress(String address) {
         logger.info("safetyFireStationByPersonAddress");
-        ArrayList<Person> personsList = fireStationRepository.personList();
-        ArrayList<FireStation> fireStationsList = fireStationRepository.fireStationList();
-        ArrayList<MedicalRecord> medicalRecordsList = fireStationRepository.medicalRecordsList();
+        ArrayList<Person> personsList = personRepository.personList();
+        ArrayList<FireStation> fireStationsList = fireStationRepository.getFireStationList();
+        ArrayList<MedicalRecord> medicalRecordsList = medicalRecordRepository.medicalRecordList();
         ArrayList<FireStationByPersonAddressDTO> listOfPersonsByAddress = new ArrayList<>();
 
         for (int i = 0; i < personsList.size(); i++) {
@@ -139,8 +131,8 @@ public class FireStationService {
 
     public ArrayList<PhoneAlertDTO> phoneByFireStation(String station) {
         logger.info("safetyPhoneListByStation");
-        ArrayList<Person> personsList = fireStationRepository.personList();
-        ArrayList<FireStation> fireStationsList = fireStationRepository.fireStationList();
+        ArrayList<Person> personsList = personRepository.personList();
+        ArrayList<FireStation> fireStationsList = fireStationRepository.getFireStationList();
         ArrayList<PhoneAlertDTO> phoneListByStation = new ArrayList<>();
 
         for (int i = 0; i < fireStationsList.size(); i++) {
@@ -158,9 +150,9 @@ public class FireStationService {
 
     public ArrayList<FirestationNumberDTO> listOfPersonsByStation(String station) {
         logger.info("safetyListOfPersonsByStation");
-        ArrayList<Person> personsList = fireStationRepository.personList();
-        ArrayList<FireStation> fireStationsList = fireStationRepository.fireStationList();
-        ArrayList<MedicalRecord> medicalRecordsList = fireStationRepository.medicalRecordsList();
+        ArrayList<Person> personsList = personRepository.personList();
+        ArrayList<FireStation> fireStationsList = fireStationRepository.getFireStationList();
+        ArrayList<MedicalRecord> medicalRecordsList = medicalRecordRepository.medicalRecordList();
         ArrayList<FirestationNumberDTO> listOfPersonsByStationNumber = new ArrayList<>();
         for (int i = 0; i < fireStationsList.size(); i++) {
             if (fireStationsList.get(i).getStation().contains(station)) {
@@ -188,7 +180,7 @@ public class FireStationService {
     public ArrayList<ListByStationNumberWithCountDTO> fireStationWithCount(String station) {
         logger.info("safetyListOfPersonsByStationWithAdultAndChildrenCount");
         ArrayList<FirestationNumberDTO> listOfPerson = listOfPersonsByStation(station);
-        ArrayList<MedicalRecord> medicalRecordsList = fireStationRepository.readMedicalRecordsList();
+        ArrayList<MedicalRecord> medicalRecordsList = medicalRecordRepository.medicalRecordList();
         ArrayList<ListByStationNumberWithCountDTO> listOfPersonByStationWithCount = new ArrayList<>();
         ArrayList<String> adultCount = new ArrayList<>();
         ArrayList<String> childrenCount = new ArrayList<>();

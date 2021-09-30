@@ -1,8 +1,6 @@
 package com.safetynet.safetynetalerts.repository;
 
 import com.safetynet.safetynetalerts.model.FireStation;
-import com.safetynet.safetynetalerts.model.MedicalRecord;
-import com.safetynet.safetynetalerts.model.Person;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
@@ -13,20 +11,49 @@ public class FireStationRepository extends JsonReadFileRepository {
 
     private final static Logger logger = LogManager.getLogger("PersonRepository");
 
-    public ArrayList<FireStation> fireStationList(){
+    public ArrayList<FireStation> getFireStationList(){
         logger.info("safetyGetFireStationList");
-
         return this.readFireStationList();
     }
-    public ArrayList<Person> personList(){
-        logger.info("safetyGetPersonsList");
 
-        return this.readPersonList();
+    public ArrayList<FireStation> addFireStation(FireStation fireStation) {
+        logger.info("safetyAddFireStation");
+        ArrayList<FireStation> addFireStationList = getFireStationList();
+        addFireStationList.add(fireStation);
+        return addFireStationList;
     }
-    public ArrayList<MedicalRecord> medicalRecordsList(){
-        logger.info("safetyGetMedicalRecordsList");
 
-        return this.readMedicalRecordsList();
+    public ArrayList<FireStation> deleteFireStation(FireStation fireStation) {
+        logger.info("safetyDeleteFireStation");
+        ArrayList<FireStation> deleteFireStationList = this.readFireStationList();
+        deleteFireStationList.remove(fireStation);
+        return deleteFireStationList;
     }
+
+    public FireStation findFireStation(String address) {
+        logger.info("safetyFindFireStation");
+        ArrayList<FireStation> fireStationName = this.readFireStationList();
+        for (int i = 0; i < fireStationName.size(); i++) {
+            if (fireStationName.get(i).getAddress().toLowerCase().contains(address)) {
+                FireStation fireStationFind = fireStationName.get(i);
+                return fireStationFind;
+            }
+        }
+        return findFireStation(address);
+    }
+
+    public FireStation updateFireStation(FireStation fireStation, String address) {
+        logger.info("safetyUpdateFireStation");
+        ArrayList<FireStation> updateFireStation = this.readFireStationList();
+        for (int i = 0; i < updateFireStation.size(); i++) {
+            if (updateFireStation.get(i).getAddress().contains(address)) {
+                updateFireStation.set(i, fireStation);
+                return updateFireStation.get(i);
+            }
+
+        }
+        return updateFireStation(fireStation, address);
+    }
+
 
 }

@@ -4,6 +4,8 @@ import com.safetynet.safetynetalerts.model.FireStation;
 import com.safetynet.safetynetalerts.model.MedicalRecord;
 import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.FireStationRepository;
+import com.safetynet.safetynetalerts.repository.MedicalRecordRepository;
+import com.safetynet.safetynetalerts.repository.PersonRepository;
 import com.safetynet.safetynetalerts.service.FireStationService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,10 +27,14 @@ public class FireStationServiceTest {
     private static FireStationService fireStationService;
     @Mock
     private static FireStationRepository fireStationRepository;
+    @Mock
+    private static PersonRepository personRepository;
+    @Mock
+    private static MedicalRecordRepository medicalRecordRepository;
 
     @BeforeEach
     void setup() {
-        fireStationService = new FireStationService(fireStationRepository);
+        fireStationService = new FireStationService(fireStationRepository,personRepository,medicalRecordRepository);
         personList = new ArrayList<>();
         Person person = new Person(
                 "guillaume",
@@ -53,9 +59,9 @@ public class FireStationServiceTest {
                 "1");
         fireStationList.add(fireStation);
 
-        when(fireStationRepository.fireStationList()).thenReturn(fireStationList);
-        when(fireStationRepository.personList()).thenReturn(personList);
-        when(fireStationRepository.medicalRecordsList()).thenReturn(medicalList);
+        when(fireStationRepository.getFireStationList()).thenReturn(fireStationList);
+        when(personRepository.personList()).thenReturn(personList);
+        when(medicalRecordRepository.medicalRecordList()).thenReturn(medicalList);
 
     }
     @AfterEach
@@ -66,7 +72,6 @@ public class FireStationServiceTest {
     }
     @Test
     public void getFireStationListTest() {
-
         assertEquals(1,fireStationService.getFireStation().size());
     }
     @Test
@@ -88,21 +93,21 @@ public class FireStationServiceTest {
     @Test
     public void findFireStationByAddressTest() {
         fireStationService.findFireStation("place de la mairie");
-        verify(fireStationRepository,times(1)).fireStationList();
+        verify(fireStationRepository,times(1)).getFireStationList();
     }
     @Test
     public void updateFireStationTest() {
         FireStation fireStation4 = new FireStation("place de la mairie","2");
         fireStationService.updateFireStation(fireStation4,"place de la mairie");
 
-        verify(fireStationRepository,times(2)).fireStationList();
+        verify(fireStationRepository,times(2)).getFireStationList();
     }
     @Test
     public void getPersonByStation() {
         fireStationService.personsByStation("1");
-        verify(fireStationRepository,times(1)).fireStationList();
-        verify(fireStationRepository,times(1)).personList();
-        verify(fireStationRepository,times(1)).medicalRecordsList();
+        verify(fireStationRepository,times(1)).getFireStationList();
+        verify(personRepository,times(1)).personList();
+        verify(medicalRecordRepository,times(1)).medicalRecordList();
     }
     @Test
     public void getFireStationByPersonAddressTest() {
