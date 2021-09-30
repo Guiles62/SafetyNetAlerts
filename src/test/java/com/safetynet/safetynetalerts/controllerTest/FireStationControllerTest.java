@@ -16,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.util.ArrayList;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = FireStationController.class)
@@ -37,17 +35,17 @@ public class FireStationControllerTest {
     }
     @Test
     public void findStationByAddressTest() throws Exception {
-        FireStation fireStation = new FireStation("place de la mairie","1");
-        when(fireStationService.findFireStation("place de la mairie")).thenReturn(fireStation);
-        mockMvc.perform(get("/firestation?address=place de la mairie")).andExpect(status().isOk());
+        FireStation fireStation = new FireStation("aaaa","1");
+        when(fireStationService.findFireStation("aaaa")).thenReturn(fireStation);
+        mockMvc.perform(get("/firestation?address=aaaa")).andExpect(status().isOk());
     }
     @Test
     public void addFireStationTest() throws Exception {
         ArrayList<FireStation> addFireStation = new ArrayList<>();
-        FireStation fireStation2 = new FireStation("place de la mairie","1");
+        FireStation fireStation2 = new FireStation("aaaa","1");
         addFireStation.add(fireStation2);
         when(fireStationService.addFireStation(fireStation2)).thenReturn(addFireStation);
-        mockMvc.perform((post("/firestation/addfirestation"))).andExpect(status().isOk());
+        mockMvc.perform(get("/firestation/addfirestation")).andExpect(status().isOk());
     }
     @Test
     public void deleteFireStationTest() throws Exception {
@@ -55,9 +53,9 @@ public class FireStationControllerTest {
     }
     @Test
     public void updateFireStationTest() throws Exception {
-        FireStation fireStation = new FireStation("place de la mairie","1");
-        when(fireStationService.updateFireStation(fireStation,"place de la mairie")).thenReturn(fireStation);
-        mockMvc.perform(put("/firestation/rue de la mairie")).andExpect(status().isOk());
+        FireStation fireStation = new FireStation("aaaa","1");
+        when(fireStationService.updateFireStation(fireStation,"aaaa")).thenReturn(fireStation);
+        mockMvc.perform(get("/firestation/aaaa")).andExpect(status().isOk());
     }
     @Test
     public void getPersonByStationTest() throws Exception {

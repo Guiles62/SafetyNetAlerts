@@ -7,7 +7,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.DTO.ChildrenListDTO;
+import com.safetynet.safetynetalerts.DTO.PersonInfoDTO;
 import com.safetynet.safetynetalerts.controller.PersonController;
 import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.PersonRepository;
@@ -17,8 +19,11 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 
@@ -35,6 +40,13 @@ public class PersonControllerTest {
     private static PersonRepository personRepository;
 
 
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Test
     public void getPersonTest() throws Exception {
@@ -55,39 +67,48 @@ public class PersonControllerTest {
 
         mockMvc.perform(get("/person?name=tonton")).andExpect(status().isOk());
     }
+
     @Test
     public void addPersonTest() throws Exception {
-        ArrayList<Person> personList = new ArrayList<>();
-        Person person = new Person(
-                "tonton",
-                "tata",
-                "rue du 8 mai",
-                "lille",
-                "59000",
-                "0600000000",
-                "tonton@gmail.com");
-        personList.add(person);
 
-        when(personService.addPerson(person)).thenReturn(personList);
+        mockMvc.perform(MockMvcRequestBuilders.post("/person/addperson")
+                .content(asJsonString(new Person(
+                        "tonton",
+                        "tata",
+                        "rue du 8 mai",
+                        "lille",
+                        "59000",
+                        "0600000000",
+                        "tonton@gmail.com")))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(post("/person/addPerson")).andExpect(status().isOk());
+
+
     }
+
     @Test
     public void updatePersonTest() throws Exception {
-        Person person = new Person(
-                "tonton",
-                "tata",
-                "rue du 8 mai",
-                "lille",
-                "59000",
-                "0600000000",
-                "tonton@gmail.com");
-        when (personService.updatePerson(person, "tonton")).thenReturn(person);
-        mockMvc.perform(put("/person?name=tonton")).andExpect(status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/person/tonton")
+                        .content(asJsonString(new Person(
+                                "tonton",
+                                "tata",
+                                "rue du 8 mai",
+                                "lille",
+                                "59000",
+                                "0600000000",
+                                "tonton@gmail.com")))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                        .andDo(print())
+                        .andExpect(status().isOk());
+
     }
     @Test
     public void deletePersonTest() throws Exception {
-        mockMvc.perform(delete("/person")).andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.delete("/person")).andExpect(status().isOk());
     }
     @Test
     public void personsMailTest() throws Exception {
@@ -97,7 +118,9 @@ public class PersonControllerTest {
     }
     @Test
     public void personListMedicationTest() throws Exception {
-        mockMvc.perform(get("/personInfo/tata")).andExpect(status().isOk());
+        ArrayList<PersonInfoDTO> personListMedication = new ArrayList<>();
+        when(personService.personListMedication("tata")).thenReturn(personListMedication);
+        mockMvc.perform(get("/personInfo?lastname=tata")).andExpect(status().isOk());
     }
 
     @Test
