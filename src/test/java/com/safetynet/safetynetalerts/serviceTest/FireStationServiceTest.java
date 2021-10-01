@@ -25,6 +25,7 @@ public class FireStationServiceTest {
     private ArrayList<MedicalRecord>medicalList;
     private ArrayList<FireStation>fireStationList;
     private static FireStationService fireStationService;
+
     @Mock
     private static FireStationRepository fireStationRepository;
     @Mock
@@ -60,14 +61,12 @@ public class FireStationServiceTest {
         fireStationList.add(fireStation);
 
         when(fireStationRepository.getFireStationList()).thenReturn(fireStationList);
-        when(personRepository.personList()).thenReturn(personList);
-        when(medicalRecordRepository.medicalRecordList()).thenReturn(medicalList);
+
 
     }
     @AfterEach
     void clearList() {
-        personList.clear();
-        medicalList.clear();
+
         fireStationList.clear();
     }
     @Test
@@ -76,7 +75,6 @@ public class FireStationServiceTest {
     }
     @Test
     public void addFireStationToListTest() {
-
         FireStation fireStation2 = new FireStation("rue du centre","2");
         fireStationService.addFireStation(fireStation2);
         assertEquals(2,fireStationService.getFireStation().size());
@@ -106,8 +104,7 @@ public class FireStationServiceTest {
     public void getPersonByStation() {
         fireStationService.personsByStation("1");
         verify(fireStationRepository,times(1)).getFireStationList();
-        verify(personRepository,times(1)).personList();
-        verify(medicalRecordRepository,times(1)).medicalRecordList();
+
     }
     @Test
     public void getFireStationByPersonAddressTest() {

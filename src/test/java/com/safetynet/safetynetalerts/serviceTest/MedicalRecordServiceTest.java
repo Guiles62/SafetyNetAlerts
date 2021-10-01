@@ -36,7 +36,7 @@ public class MedicalRecordServiceTest {
                 "");
         medicalList.add(medicalRecord);
 
-        when(medicalRecordRepository.medicalRecordList()).thenReturn(medicalList);
+        when(medicalRecordRepository.getMedicalRecordList()).thenReturn(medicalList);
 
     }
     @AfterEach
@@ -68,7 +68,7 @@ public class MedicalRecordServiceTest {
     public void findMedicalRecordByNameTest() {
 
         medicalRecordService.findMedicalRecords("guillaume");
-        verify(medicalRecordRepository,times(1)).medicalRecordList();
+        verify(medicalRecordRepository,times(1)).getMedicalRecordList();
     }
     @Test
     public void updateMedicalRecordTest() {
@@ -80,6 +80,6 @@ public class MedicalRecordServiceTest {
                 "bad persons");
         medicalRecordService.updateMedicalRecord(medicalRecord2,"guillaume");
 
-        verify(medicalRecordRepository,times(2)).medicalRecordList();
+        verify(medicalRecordRepository,times(2)).getMedicalRecordList();
     }
 }

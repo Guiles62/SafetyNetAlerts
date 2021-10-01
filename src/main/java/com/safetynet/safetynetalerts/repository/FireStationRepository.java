@@ -25,14 +25,14 @@ public class FireStationRepository extends JsonReadFileRepository {
 
     public ArrayList<FireStation> deleteFireStation(FireStation fireStation) {
         logger.info("safetyDeleteFireStation");
-        ArrayList<FireStation> deleteFireStationList = this.readFireStationList();
+        ArrayList<FireStation> deleteFireStationList = getFireStationList();
         deleteFireStationList.remove(fireStation);
         return deleteFireStationList;
     }
 
     public FireStation findFireStation(String address) {
         logger.info("safetyFindFireStation");
-        ArrayList<FireStation> fireStationName = this.readFireStationList();
+        ArrayList<FireStation> fireStationName = getFireStationList();
         for (int i = 0; i < fireStationName.size(); i++) {
             if (fireStationName.get(i).getAddress().toLowerCase().contains(address)) {
                 FireStation fireStationFind = fireStationName.get(i);
@@ -44,13 +44,12 @@ public class FireStationRepository extends JsonReadFileRepository {
 
     public FireStation updateFireStation(FireStation fireStation, String address) {
         logger.info("safetyUpdateFireStation");
-        ArrayList<FireStation> updateFireStation = this.readFireStationList();
+        ArrayList<FireStation> updateFireStation = getFireStationList();
         for (int i = 0; i < updateFireStation.size(); i++) {
             if (updateFireStation.get(i).getAddress().contains(address)) {
                 updateFireStation.set(i, fireStation);
                 return updateFireStation.get(i);
             }
-
         }
         return updateFireStation(fireStation, address);
     }

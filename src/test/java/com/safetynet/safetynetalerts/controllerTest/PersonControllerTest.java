@@ -8,9 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetynetalerts.model.Person;
-import com.safetynet.safetynetalerts.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,8 +28,6 @@ public class PersonControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
-    private static PersonRepository personRepository;
 
     public static String asJsonString(final Object obj) {
         try {
