@@ -53,33 +53,34 @@ public class MedicalRecordServiceTest {
     @Test
     public void addMedicalRecordTest() {
         MedicalRecord medicalRecord1 = new MedicalRecord("tonton","tata","01/04/1994","doliprane","");
+        when(medicalRecordRepository.addMedicalRecord(medicalRecord1)).thenReturn(medicalList);
         medicalRecordService.addMedicalRecord(medicalRecord1);
-        assertEquals(2,medicalRecordService.getMedicalRecord().size());
+        verify(medicalRecordRepository,times(1)).addMedicalRecord(medicalRecord1);
     }
     @Test
     public void deleteMedicalRecordTest() {
         MedicalRecord medicalRecord2 = new MedicalRecord("tonton","tata","01/04/1994","doliprane","");
-        medicalRecordService.addMedicalRecord(medicalRecord2);
-        assertEquals(2,medicalRecordService.getMedicalRecord().size());
+        when(medicalRecordRepository.deleteMedicalRecord(medicalRecord2)).thenReturn(medicalList);
         medicalRecordService.deleteMedicalRecord(medicalRecord2);
-        assertEquals(1,medicalRecordService.getMedicalRecord().size());
+        verify(medicalRecordRepository,times(1)).deleteMedicalRecord(medicalRecord2);
     }
     @Test
     public void findMedicalRecordByNameTest() {
-
+        MedicalRecord medicalRecord3 = new MedicalRecord("guillaume","tata","01/04/1994","doliprane","");
+        when(medicalRecordRepository.findMedicalRecords("guillaume")).thenReturn(medicalRecord3);
         medicalRecordService.findMedicalRecords("guillaume");
-        verify(medicalRecordRepository,times(1)).getMedicalRecordList();
+        verify(medicalRecordRepository,times(1)).findMedicalRecords("guillaume");
     }
     @Test
     public void updateMedicalRecordTest() {
-        MedicalRecord medicalRecord2 = new MedicalRecord(
+        MedicalRecord medicalRecord4 = new MedicalRecord(
                 "guillaume",
                 "morph",
                 "06/03/1983",
                 "",
                 "bad persons");
-        medicalRecordService.updateMedicalRecord(medicalRecord2,"guillaume");
-
-        verify(medicalRecordRepository,times(2)).getMedicalRecordList();
+        when(medicalRecordRepository.updateMedicalRecord(medicalRecord4,"guillaume")).thenReturn(medicalRecord4);
+        medicalRecordService.updateMedicalRecord(medicalRecord4,"guillaume");
+        verify(medicalRecordRepository,times(1)).updateMedicalRecord(medicalRecord4,"guillaume");
     }
 }

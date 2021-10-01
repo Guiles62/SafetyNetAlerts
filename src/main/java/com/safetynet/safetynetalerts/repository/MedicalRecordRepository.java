@@ -45,9 +45,8 @@ public class MedicalRecordRepository extends JsonReadFileRepository {
         for (int i = 0; i < updateAMedicalRecord.size(); i++) {
             if (updateAMedicalRecord.get(i).getFirstname().contains(name)) {
                 updateAMedicalRecord.set(i, medicalRecord);
-                return updateAMedicalRecord.get(i);
             }
-
+            return updateAMedicalRecord.get(i);
         }
         return updateMedicalRecord(medicalRecord,name);
     }

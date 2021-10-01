@@ -61,6 +61,8 @@ public class FireStationServiceTest {
         fireStationList.add(fireStation);
 
         when(fireStationRepository.getFireStationList()).thenReturn(fireStationList);
+        when(personRepository.getPersonList()).thenReturn(personList);
+        when(medicalRecordRepository.getMedicalRecordList()).thenReturn(medicalList);
 
 
     }
@@ -75,30 +77,27 @@ public class FireStationServiceTest {
     }
     @Test
     public void addFireStationToListTest() {
-        FireStation fireStation2 = new FireStation("rue du centre","2");
-        fireStationService.addFireStation(fireStation2);
-        assertEquals(2,fireStationService.getFireStation().size());
+        FireStation fireStation1 = new FireStation("rue du centre","2");
+        fireStationService.addFireStation(fireStation1);
+        verify(fireStationRepository,times(1)).addFireStation(fireStation1);
     }
     @Test
     public void deleteFireStationToList() {
 
-        FireStation fireStation3 = new FireStation("rue du centre","2");
-        fireStationService.addFireStation(fireStation3);
-        assertEquals(2,fireStationService.getFireStation().size());
-        fireStationService.deleteFireStation(fireStation3);
-        assertEquals(1, fireStationService.getFireStation().size());
+        FireStation fireStation2 = new FireStation("rue du centre","2");
+        fireStationService.deleteFireStation(fireStation2);
+        verify(fireStationRepository,times(1)).deleteFireStation(fireStation2);
     }
     @Test
     public void findFireStationByAddressTest() {
         fireStationService.findFireStation("place de la mairie");
-        verify(fireStationRepository,times(1)).getFireStationList();
+        verify(fireStationRepository,times(1)).findFireStation("place de la mairie");
     }
     @Test
     public void updateFireStationTest() {
         FireStation fireStation4 = new FireStation("place de la mairie","2");
         fireStationService.updateFireStation(fireStation4,"place de la mairie");
-
-        verify(fireStationRepository,times(2)).getFireStationList();
+        verify(fireStationRepository,times(1)).updateFireStation(fireStation4,"place de la mairie");
     }
     @Test
     public void getPersonByStation() {

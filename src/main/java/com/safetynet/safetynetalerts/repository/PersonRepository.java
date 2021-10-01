@@ -52,9 +52,8 @@ public class PersonRepository extends JsonReadFileRepository {
         for (int i = 0; i < updateAPerson.size(); i++) {
             if (updateAPerson.get(i).getFirstname().contains(name)) {
                 updateAPerson.set(i, person);
-                return updateAPerson.get(i);
             }
-
+            return updateAPerson.get(i);
         }
         return updatePerson(person,name);
     }

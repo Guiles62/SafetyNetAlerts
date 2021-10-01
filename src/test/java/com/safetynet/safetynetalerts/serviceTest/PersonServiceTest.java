@@ -73,9 +73,9 @@ public class PersonServiceTest {
                 "38000",
                 "0782427444",
                 "gbouzazi@gmail.com");
-        when(personRepository.getPersonList()).thenReturn(personList);
+        when(personRepository.addPerson(person2)).thenReturn(personList);
         personService.addPerson(person2);
-        assertEquals(2,personService.getPersons().size());
+        verify(personRepository,times(1)).addPerson(person2);
 
     }
     @Test
@@ -88,22 +88,31 @@ public class PersonServiceTest {
                 "38000",
                 "0782427444",
                 "gbouzazi@gmail.com");
-        when(personRepository.getPersonList()).thenReturn(personList);
+        when(personRepository.addPerson(person3)).thenReturn(personList);
         personService.addPerson(person3);
-        assertEquals(2,personService.getPersons().size());
+        verify(personRepository,times(1)).addPerson(person3);
+        when(personRepository.deletePerson(person3)).thenReturn(personList);
         personService.deletePerson(person3);
-        assertEquals(1,personService.getPersons().size());
+        verify(personRepository,times(1)).deletePerson(person3);
+
     }
     @Test
     public void findPersonTest() {
-        when(personRepository.getPersonList()).thenReturn(personList);
-        personService.findPerson("guillaume");
-        verify(personRepository,times(1)).getPersonList();
+        Person person4 = new Person(
+                "tonton",
+                "tata",
+                "15 rue colonel dumont",
+                "grenoble",
+                "38000",
+                "0782427444",
+                "gbouzazi@gmail.com");
+        when(personRepository.findPerson("tonton")).thenReturn(person4);
+        personService.findPerson("tonton");
+        verify(personRepository,times(1)).findPerson("tonton");
     }
     @Test
     public void updatePersonTest() {
-        when(personRepository.getPersonList()).thenReturn(personList);
-        Person person4 = new Person(
+        Person person5 = new Person(
                 "guillaume",
                 "morph",
                 "15 rue dumas",
@@ -111,8 +120,9 @@ public class PersonServiceTest {
                 "59160",
                 "0700000000",
                 "guilesmorph@gmail.com");
-        personService.updatePerson(person4, "guillaume");
-        verify(personRepository,times(2)).getPersonList();
+        when(personRepository.updatePerson(person5,"guillaume")).thenReturn(person5);
+        personService.updatePerson(person5, "guillaume");
+        verify(personRepository,times(1)).updatePerson(person5,"guillaume");
     }
     @Test
     public void getMailsByCityTest() {

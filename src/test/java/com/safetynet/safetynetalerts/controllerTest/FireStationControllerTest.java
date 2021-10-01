@@ -39,7 +39,7 @@ public class FireStationControllerTest {
     }
     @Test
     public void addFireStationTest() throws Exception {
-        mockMvc.perform(get("/firestation/addfirestation")
+        mockMvc.perform(post("/firestation/addfirestation")
                 .content(asJsonString(new FireStation("aaaa","1")))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -52,7 +52,7 @@ public class FireStationControllerTest {
     }
     @Test
     public void updateFireStationTest() throws Exception {
-        mockMvc.perform(get("/firestation/aaaa")
+        mockMvc.perform(put("/firestation/aaaa")
                 .content(asJsonString(new FireStation("aaaa","1")))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))

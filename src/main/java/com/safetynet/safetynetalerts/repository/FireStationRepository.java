@@ -48,8 +48,8 @@ public class FireStationRepository extends JsonReadFileRepository {
         for (int i = 0; i < updateFireStation.size(); i++) {
             if (updateFireStation.get(i).getAddress().contains(address)) {
                 updateFireStation.set(i, fireStation);
-                return updateFireStation.get(i);
             }
+            return updateFireStation.get(i);
         }
         return updateFireStation(fireStation, address);
     }
