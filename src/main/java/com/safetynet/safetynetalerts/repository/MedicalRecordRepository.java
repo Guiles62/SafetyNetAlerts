@@ -33,9 +33,9 @@ public class MedicalRecordRepository extends JsonReadFileRepository {
         ArrayList<MedicalRecord> medicalRecordsName = getMedicalRecordList();
         for (int i = 0; i < medicalRecordsName.size(); i++) {
             if (medicalRecordsName.get(i).getFirstname().toLowerCase().contains(name)) {
-                MedicalRecord medicalRecordFind = medicalRecordsName.get(i);
-                return medicalRecordFind;
+                medicalRecordsName.get(i);
             }
+            return medicalRecordsName.get(i);
         }
         return findMedicalRecords(name);
     }

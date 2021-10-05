@@ -45,7 +45,7 @@ public class PersonControllerTest {
     @Test
     public void getPersonByNameTest() throws Exception {
 
-        mockMvc.perform(get("/person?name=tonton")).andExpect(status().isOk());
+        mockMvc.perform(get("/person/tonton")).andExpect(status().isOk());
     }
 
     @Test

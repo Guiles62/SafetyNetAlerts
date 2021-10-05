@@ -35,9 +35,9 @@ public class FireStationRepository extends JsonReadFileRepository {
         ArrayList<FireStation> fireStationName = getFireStationList();
         for (int i = 0; i < fireStationName.size(); i++) {
             if (fireStationName.get(i).getAddress().toLowerCase().contains(address)) {
-                FireStation fireStationFind = fireStationName.get(i);
-                return fireStationFind;
+                fireStationName.get(i);
             }
+            return fireStationName.get(i);
         }
         return findFireStation(address);
     }

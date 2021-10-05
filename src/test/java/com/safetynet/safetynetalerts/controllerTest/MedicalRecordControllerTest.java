@@ -56,7 +56,7 @@ public class MedicalRecordControllerTest {
     }
     @Test
     public void getMedicalRecordByNameTest() throws Exception {
-        mockMvc.perform(get("/medicalrecord?name=guillaume")).andExpect(status().isOk());
+        mockMvc.perform(get("/medicalrecord/guillaume")).andExpect(status().isOk());
     }
 
 }

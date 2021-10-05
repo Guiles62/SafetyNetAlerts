@@ -39,9 +39,9 @@ public class PersonRepository extends JsonReadFileRepository {
         ArrayList<Person> personName = getPersonList();
         for (int i = 0; i < personName.size(); i++) {
             if (personName.get(i).getFirstname().toLowerCase().contains(name)) {
-                Person personFind = personName.get(i);
-                return personFind;
+                personName.get(i);
             }
+            return personName.get(i);
         }
         return findPerson(name);
     }

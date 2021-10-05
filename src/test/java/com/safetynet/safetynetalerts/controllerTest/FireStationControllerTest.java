@@ -35,7 +35,7 @@ public class FireStationControllerTest {
     }
     @Test
     public void findStationByAddressTest() throws Exception {
-        mockMvc.perform(get("/firestation?address=aaaa")).andExpect(status().isOk());
+        mockMvc.perform(get("/firestation/aaaa")).andExpect(status().isOk());
     }
     @Test
     public void addFireStationTest() throws Exception {
