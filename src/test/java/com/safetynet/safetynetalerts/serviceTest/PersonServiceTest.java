@@ -135,7 +135,7 @@ public class PersonServiceTest {
         when(personRepository.getPersonList()).thenReturn(personList);
         when(medicalRecordRepository.getMedicalRecordList()).thenReturn(medicalList);
 
-        assertEquals(1,personService.personListMedication("morph").size());
+        assertEquals(1,personService.personListMedication("guillaume","morph").size());
     }
     @Test
     public void getAdultListTest() {

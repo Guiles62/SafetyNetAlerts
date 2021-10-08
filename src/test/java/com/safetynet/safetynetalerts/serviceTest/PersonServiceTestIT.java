@@ -5,6 +5,7 @@ import com.safetynet.safetynetalerts.DTO.PersonInfoDTO;
 import com.safetynet.safetynetalerts.model.Person;
 import com.safetynet.safetynetalerts.repository.PersonRepository;
 import com.safetynet.safetynetalerts.service.PersonService;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class PersonServiceTestIT {
    }
    @Test
     public void personListMedicationTest(){
-        ArrayList<PersonInfoDTO> listMedication = personService.personListMedication("Boyd");
+        ArrayList<PersonInfoDTO> listMedication = personService.personListMedication("John","Boyd");
             assertEquals(listMedication.size(), 6);
    }
    @Test

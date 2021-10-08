@@ -75,30 +75,30 @@ public class PersonService {
         return getPersonsMail;
     }
 
-    public ArrayList<PersonInfoDTO> personListMedication(String lastname){
+    public ArrayList<PersonInfoDTO> personListMedication(String firstname,String lastname){
         logger.info("safetyPersonListMedicationByName");
         ArrayList<Person> personsList = personRepository.getPersonList();
         ArrayList<MedicalRecord> medicalRecordsList = medicalRecordRepository.getMedicalRecordList();
         ArrayList<PersonInfoDTO> medicationOfPersons = new ArrayList<>();
 
         for (int i =0; i<personsList.size(); i++) {
-            if (personsList.get(i).getLastname().contains(lastname)){
-                for (int j = 0; j<medicalRecordsList.size();j++){
-                    if(medicalRecordsList.get(j).getFirstname().contains(personsList.get(i).getFirstname())){
-                        medicationOfPersons.add(new PersonInfoDTO(
-                        personsList.get(i).getFirstname(),
-                        personsList.get(i).getLastname(),
-                        personsList.get(i).getAddress(),
-                        personsList.get(i).getCity(),
-                        personsList.get(i).getZip(),
-                        personsList.get(i).getEmail(),
-                        medicalRecordsList.get(j).getBirthdate(),
-                        medicalRecordsList.get(j).getMedications(),
-                        medicalRecordsList.get(j).getAllergies()));
+            if (personsList.get(i).getLastname().contains(lastname) && (personsList.get(i).getFirstname().contains(firstname))){
+                    for (int j = 0; j < medicalRecordsList.size(); j++) {
+                        if (medicalRecordsList.get(j).getLastname().contains(personsList.get(i).getLastname())) {
+                            medicationOfPersons.add(new PersonInfoDTO(
+                                    medicalRecordsList.get(j).getFirstname(),
+                                    medicalRecordsList.get(j).getLastname(),
+                                    personsList.get(i).getAddress(),
+                                    personsList.get(i).getCity(),
+                                    personsList.get(i).getZip(),
+                                    personsList.get(i).getEmail(),
+                                    medicalRecordsList.get(j).getBirthdate(),
+                                    medicalRecordsList.get(j).getMedications(),
+                                    medicalRecordsList.get(j).getAllergies()));
+                        }
                     }
                 }
             }
-        }
         return medicationOfPersons;
     }
 

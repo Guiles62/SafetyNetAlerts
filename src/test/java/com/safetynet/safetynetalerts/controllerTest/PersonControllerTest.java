@@ -45,7 +45,7 @@ public class PersonControllerTest {
     @Test
     public void getPersonByNameTest() throws Exception {
 
-        mockMvc.perform(get("/person/tonton")).andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/person?name=guillaume")).andExpect(status().isOk());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class PersonControllerTest {
     @Test
     public void personListMedicationTest() throws Exception {
 
-        mockMvc.perform(get("/personInfo?lastname=tata")).andExpect(status().isOk());
+        mockMvc.perform(get("/personInfo?firstname=tonton&lastname=tata")).andExpect(status().isOk());
     }
 
     @Test

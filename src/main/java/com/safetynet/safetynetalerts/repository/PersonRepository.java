@@ -36,12 +36,11 @@ public class PersonRepository extends JsonReadFileRepository {
 
     public Person findPerson(String name) {
         logger.info("safetyFindPersonByName");
-        ArrayList<Person> personName = getPersonList();
-        for (int i = 0; i < personName.size(); i++) {
-            if (personName.get(i).getFirstname().toLowerCase().contains(name)) {
-                personName.get(i);
+        ArrayList<Person> personListByName = getPersonList();
+        for (Person personFind : personListByName) {
+            if (personFind.getFirstname().contains(name)) {
+              return personFind;
             }
-            return personName.get(i);
         }
         return findPerson(name);
     }

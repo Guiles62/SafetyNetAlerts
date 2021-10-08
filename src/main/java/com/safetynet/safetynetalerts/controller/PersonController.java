@@ -30,7 +30,7 @@ public class PersonController {
         return getPersonList;
     }
     @GetMapping(value ="/person/{name}")
-    public Person getPerson(@PathVariable String name){
+    public Person getPersonByName(@PathVariable String name){
         logger.info("safetyGetPersonByName");
         Person person = personService.findPerson(name);
         return person;
@@ -63,9 +63,9 @@ public class PersonController {
     }
     // donne les infos sur la médication de personnes
     @GetMapping(value = "/personInfo")
-    public ArrayList<PersonInfoDTO>getPersonListMedication(@RequestParam(value = "lastname") String lastname){
+    public ArrayList<PersonInfoDTO>getPersonListMedication(@RequestParam(value = "firstname") String firstname,@RequestParam(value = "lastname") String lastname){
         logger.info("safetyPersonListMedicationBYName");
-        ArrayList<PersonInfoDTO>medicationByPerson = personService.personListMedication(lastname);
+        ArrayList<PersonInfoDTO>medicationByPerson = personService.personListMedication(firstname,lastname);
         return medicationByPerson;
     }
 

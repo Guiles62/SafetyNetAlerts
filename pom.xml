@@ -77,6 +77,10 @@
             <version>0.8.7</version>
             <type>maven-plugin</type>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
